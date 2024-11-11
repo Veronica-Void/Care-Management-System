@@ -11,8 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('login_pages', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->string('role');
+            $table->string('f_name');
+            $table->string('l_name');
+            $table->string('email');
+            $table->string('phone');
+            $table->string('password');
+            $table->string('dob');
             $table->timestamps();
         });
     }
@@ -22,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('login_pages');
+        Schema::dropIfExists('users');
     }
 };

@@ -14,12 +14,14 @@
     <thead>
         <th>Name</th>
         <th>Email</th>
+        <th>Role</th>
         <th>Action</th>
     </thead>
     <tbody>
         <tr>
             <td>{{$data->f_name}}</td>
             <td>{{$data->email}}</td>
+            <td>{{$data->role}}</td>
             <td><a href="logout">Logout</a></td>
         </tr>
     </tbody>

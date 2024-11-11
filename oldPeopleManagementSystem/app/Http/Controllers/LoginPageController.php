@@ -6,7 +6,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\LoginPage;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Session; // Only this Session import is needed
+use Illuminate\Support\Facades\Session;
 
 class LoginPageController extends Controller
 {
@@ -30,10 +30,10 @@ class LoginPageController extends Controller
             'roles' => 'required',
             'f_name' => 'required',
             'l_name' => 'required',
-            'email' => 'required|email|unique:users',
+            'email' => 'required|email|unique:users,email',
             'phone' => 'required',
-            'password' => 'required|max:12|min:5',
-            'dob' => 'required'
+            'password' => 'required|string|min:5|max:12',
+            'dob' => 'required|date'
         ]);
 
         // Create a new User instance and save the details
@@ -45,13 +45,12 @@ class LoginPageController extends Controller
         $user->phone = $request->phone;
         $user->password = Hash::make($request->password); // Hash the password before saving
         $user->dob = $request->dob;
-        $res = $user->save();
 
-        // Check if the user was successfully saved and return appropriate response
-        if ($res) {
-            return back()->with('success', 'You have been registered');
+        // Save the user and return response
+        if ($user->save()) {
+            return redirect()->back()->with('success', 'You have been registered successfully');
         } else {
-            return back()->with('fail', 'Something went wrong');
+            return redirect()->back()->with('fail', 'Registration failed, please try again');
         }
     }
 
@@ -67,50 +66,45 @@ class LoginPageController extends Controller
         // Validate incoming request data
         $request->validate([
             'email' => 'required|email',
-            'password' => 'required|max:12|min:5',
+            'password' => 'required|string|min:5|max:12',
         ]);
-    
+
         // Retrieve user based on email
-        $user = LoginPage::where('email', '=', $request->email)->first();
-        
+        $user = LoginPage::where('email', $request->email)->first();
+
         // Check if the user exists and the password is correct
-        if ($user) {
-            if (Hash::check($request->password, $user->password)) {
-                // Store user ID in session if login is successful
-                Session::put('loginId', $user->id);
-                return redirect('dashboard');
-            } else {
-                return back()->with('fail', 'This password is incorrect');
-            }
-        } else {
-            return back()->with('fail', 'This email is unregistered');
+        if ($user && Hash::check($request->password, $user->password)) {
+            Session::put('loginId', $user->id);
+            return redirect()->route('dashboard');
         }
+
+        return redirect()->back()->with('fail', 'Invalid credentials');
     }
 
     // Display the dashboard page (after successful login)
-// Display the dashboard page (after successful login)
-public function dashboard()
-{
-    $data = array();
-    if(Session::has('loginId')){
-        $data = LoginPage::where('id', '=', Session::get('loginId'))->first();
-    }
-    return view('dashboard', compact('data'));
-}
+    public function dashboard()
+    {
+        if (Session::has('loginId')) {
+            $data = LoginPage::find(Session::get('loginId'));
+            return view('dashboard', compact('data'));
+        }
 
-public function logout(){
-    if(Session::has('loginId')){
-        Session::pull('loginId');
-        return redirect('login');
+        return redirect()->route('login')->with('fail', 'Please log in first');
     }
-}
+
+    // Logout function
+    public function logout()
+    {
+        if (Session::has('loginId')) {
+            Session::forget('loginId');
+        }
+
+        return redirect()->route('login')->with('success', 'Logged out successfully');
+    }
 
     // Show the admin page
     public function admin()
     {
-        
         return view('admin');
     }
 }
-
-    
