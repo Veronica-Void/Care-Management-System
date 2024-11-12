@@ -107,4 +107,5 @@ class LoginPageController extends Controller
     {
         return view('admin');
     }
+
 }
