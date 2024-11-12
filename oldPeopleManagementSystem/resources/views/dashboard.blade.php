@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<div class="login-container" style="margin-top: 20px;">
+<div class="container" style="margin-top: 20px;">
 <h2>Welcome to Dashboard</h2>
 <hr>
 <table class="table">
