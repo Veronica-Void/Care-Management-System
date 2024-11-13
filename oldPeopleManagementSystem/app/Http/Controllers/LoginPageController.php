@@ -1,6 +1,5 @@
 <?php
 
-// app/Http/Controllers/PageController.php
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -36,7 +35,7 @@ class LoginPageController extends Controller
             'dob' => 'required|date'
         ]);
 
-        // Create a new User instance and save the details
+        // Create a new User instance and save the details as unapproved initially
         $user = new LoginPage();
         $user->role = $request->roles;
         $user->f_name = $request->f_name;
@@ -45,10 +44,11 @@ class LoginPageController extends Controller
         $user->phone = $request->phone;
         $user->password = Hash::make($request->password); // Hash the password before saving
         $user->dob = $request->dob;
+        $user->is_approved = false; // New field to indicate approval status
 
         // Save the user and return response
         if ($user->save()) {
-            return redirect()->back()->with('success', 'You have been registered successfully');
+            return redirect()->back()->with('success', 'You have been registered successfully. Waiting for admin approval.');
         } else {
             return redirect()->back()->with('fail', 'Registration failed, please try again');
         }
@@ -72,9 +72,17 @@ class LoginPageController extends Controller
         // Retrieve user based on email
         $user = LoginPage::where('email', $request->email)->first();
 
-        // Check if the user exists and the password is correct
+        // Check if the user exists, the password is correct, and the user is approved
         if ($user && Hash::check($request->password, $user->password)) {
+            if (!$user->is_approved) {
+                return redirect()->back()->with('fail', 'Account not approved by admin.');
+            }
+
             Session::put('loginId', $user->id);
+            Session::put('role', $user->role);
+            if ($user->role == 'admin') {
+                return redirect()->route('admin');
+            }
             return redirect()->route('dashboard');
         }
 
@@ -97,6 +105,7 @@ class LoginPageController extends Controller
     {
         if (Session::has('loginId')) {
             Session::forget('loginId');
+            Session::forget('role');
         }
 
         return redirect()->route('login')->with('success', 'Logged out successfully');
@@ -105,7 +114,53 @@ class LoginPageController extends Controller
     // Show the admin page
     public function admin()
     {
-        return view('admin');
+        $data = LoginPage::find(Session::get('loginId'));
+        return view('admin', compact('data'));
     }
+
+    // Only allow 'admin' to access the approval page and approve new users
+    public function approval()
+    {
+        if (Session::get('role') !== 'admin') {
+            return back()->with('fail','You must be an admin');
+        }
+        // Fetch users awaiting approval
+        $unapprovedUsers = LoginPage::where('is_approved', false)->get();
+
+        return view('approval', compact('unapprovedUsers'));
+    }
+
+    // Method to approve a user
+    public function approveUser($id)
+    {
+        if (Session::get('role') !== 'admin') {
+            return back()->with('fail', 'Unauthorized access');
+        }
+
+        $user = LoginPage::find($id);
+
+        if ($user) {
+            $user->is_approved = true; // Set user as approved
+            $user->save();
+            return redirect()->route('approval')->with('success', 'User approved successfully');
+        } else {
+            return back()->with('fail', 'User not found');
+        }
+    }
+    public function denyUser($id)
+{
+    if (Session::get('role') !== 'admin') {
+        return back()->with('fail', 'Unauthorized access');
+    }
+
+    $user = LoginPage::find($id);
+
+    if ($user) {
+        $user->delete(); // Remove the unapproved user from the database
+        return redirect()->route('approval')->with('success', 'User denied successfully');
+    } else {
+        return back()->with('fail', 'User not found');
+    }
+}
 
 }

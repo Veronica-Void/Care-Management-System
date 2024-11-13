@@ -16,10 +16,11 @@ return new class extends Migration
             $table->string('role');
             $table->string('f_name');
             $table->string('l_name');
-            $table->string('email');
+            $table->string('email')->unique();
             $table->string('phone');
             $table->string('password');
             $table->string('dob');
+            $table->boolean('is_approved')->default(false); // New column for approval status
             $table->timestamps();
         });
     }
