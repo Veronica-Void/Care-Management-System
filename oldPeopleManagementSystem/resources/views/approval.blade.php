@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Approval Page</title>
-    <!-- <style>
+    <style>
         body { font-family: Arial, sans-serif; }
         table { width: 100%; border-collapse: collapse; margin-top: 20px; }
         th, td { padding: 10px; border: 1px solid #ddd; text-align: center; }
@@ -12,7 +12,7 @@
         .btn { padding: 5px 10px; color: white; text-decoration: none; border-radius: 5px; }
         .approve { background-color: #4CAF50; }
         .deny { background-color: #f44336; }
-    </style> -->
+    </style>
 </head>
 <body>
     <h2>User Approval Page</h2>
