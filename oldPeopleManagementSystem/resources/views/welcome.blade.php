@@ -17,4 +17,12 @@
     <h1>Welcome to the Home Page!</h1>
     <a href="register" class="button-class">Register</a>
     <a href="login" class="button-class">Login</a>
+
 </body>
+</html>
+
+</body>
+</html>
+</body>
+</html>
+
