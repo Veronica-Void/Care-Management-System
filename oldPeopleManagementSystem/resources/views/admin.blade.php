@@ -30,7 +30,7 @@
 <a href="payment" class="button-class">Manage Payments</a>
 <a href="roster" class="button-class">View the roster</a>
 <a href="create_roster" class="button-class">Create a Roster</a>
-<a href="admin/role" class="button-class">Role page</a>
+<a href="/admin/role" class="button-class">Role page</a>
 <a href="approval"class="button-class">Approval page</a>
 </body>
 </html>
