@@ -16,9 +16,16 @@ class LoginPageController extends Controller
     }
 
     // Show the registration page
-    public function register()
+    public function register(Request $request)
     {
-        return view("auth.register");
+        // Retrieve old input data (if any) and determine if the patient fields should be shown
+        $showPatientFields = $request->old('roles') === 'patient'; // Check if 'patient' was selected previously
+        
+        // Pass the data to the view
+        return view("auth.register", [
+            'showPatientFields' => $showPatientFields,
+            'formData' => $request->old()
+        ]);
     }
 
     // Handle user registration
@@ -35,6 +42,15 @@ class LoginPageController extends Controller
             'dob' => 'required|date'
         ]);
 
+        // If the role is 'patient', validate the additional fields
+        if ($request->roles === 'patient') {
+            $request->validate([
+                'family_code' => 'required',
+                'emergency_contact' => 'required',
+                'relation_to_emergency_contact' => 'required',
+            ]);
+        }
+
         // Create a new User instance and save the details as unapproved initially
         $user = new LoginPage();
         $user->role = $request->roles;
@@ -45,6 +61,13 @@ class LoginPageController extends Controller
         $user->password = Hash::make($request->password); // Hash the password before saving
         $user->dob = $request->dob;
         $user->is_approved = false; // New field to indicate approval status
+
+        // If the user is a patient, save additional patient information
+        if ($request->roles === 'patient') {
+            $user->family_code = $request->family_code;
+            $user->emergency_contact = $request->emergency_contact;
+            $user->relation_to_emergency_contact = $request->relation_to_emergency_contact;
+        }
 
         // Save the user and return response
         if ($user->save()) {
@@ -122,10 +145,11 @@ class LoginPageController extends Controller
     public function approval()
     {
         if (Session::get('role') !== 'admin') {
-            return back()->with('fail','You must be an admin');
+            return back()->with('fail', 'You must be an admin');
         }
         // Fetch users awaiting approval
         $unapprovedUsers = LoginPage::where('is_approved', false)->get();
+        $approvedUsers = LoginPage::where('is_approved', true)->get();
 
         return view('approval', compact('unapprovedUsers'));
     }
@@ -147,20 +171,37 @@ class LoginPageController extends Controller
             return back()->with('fail', 'User not found');
         }
     }
+
+    // Method to deny a user
     public function denyUser($id)
-{
-    if (Session::get('role') !== 'admin') {
-        return back()->with('fail', 'Unauthorized access');
+    {
+        if (Session::get('role') !== 'admin') {
+            return back()->with('fail', 'Unauthorized access');
+        }
+
+        $user = LoginPage::find($id);
+
+        if ($user) {
+            $user->delete(); // Remove the unapproved user from the database
+            return redirect()->route('approval')->with('success', 'User denied successfully');
+        } else {
+            return back()->with('fail', 'User not found');
+        }
     }
 
-    $user = LoginPage::find($id);
+    // Method to handle showing patient-specific fields dynamically
+    public function addToPage(Request $request)
+    {
+        // Initialize form data to avoid undefined variable errors
+        $formData = $request->all() ?: [];
 
-    if ($user) {
-        $user->delete(); // Remove the unapproved user from the database
-        return redirect()->route('approval')->with('success', 'User denied successfully');
-    } else {
-        return back()->with('fail', 'User not found');
+        // Initialize showPatientFields as false unless 'patient' is selected
+        $showPatientFields = isset($formData['roles']) && $formData['roles'] === 'patient';
+
+        // Pass variables to the view
+        return view('auth.register', [
+            'showPatientFields' => $showPatientFields,
+            'formData' => $formData,
+        ]);
     }
-}
-
 }
