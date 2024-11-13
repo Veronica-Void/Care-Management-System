@@ -6,6 +6,7 @@ use App\Models\AdminPage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
+
 class AdminPageController extends Controller
 {
     // Grabs all the data from the admin_pages table and sends it to the page
@@ -24,10 +25,12 @@ class AdminPageController extends Controller
         if (Session::get('role') !== 'admin') {
             return back()->with('fail','You must be an admin');
         }
+
         $request->validate([
             'role' => 'required',
             'access_num' => 'required',
         ]);
+
         $roles = new AdminPage();
         $roles->role = $request->role;
         $roles->access_lvl = $request->access_num;
