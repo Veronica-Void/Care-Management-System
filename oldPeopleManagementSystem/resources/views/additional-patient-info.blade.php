@@ -6,6 +6,9 @@
     <title>Document</title>
 </head>
 <body>
-    
+    patient ID: <br>
+    Patient Name: <br>
+    Group: <br>
+    Admission Date: <br>
 </body>
 </html>
