@@ -149,7 +149,7 @@ class LoginPageController extends Controller
         }
         // Fetch users awaiting approval
         $unapprovedUsers = LoginPage::where('is_approved', false)->get();
-        $approvedUsers = LoginPage::where('is_approved', true)->get();
+
 
         return view('approval', compact('unapprovedUsers'));
     }
@@ -203,5 +203,9 @@ class LoginPageController extends Controller
             'showPatientFields' => $showPatientFields,
             'formData' => $formData,
         ]);
+    }
+    public function employees(){
+        $approvedUsers = LoginPage::where('is_approved', true)->get();
+        return view('employees', compact('approvedUsers'));
     }
 }
