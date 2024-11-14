@@ -4,15 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Models\additionalPatientInfo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+
+// if ((Session::get('role') == 'admin') or (Session::get('role') == 'supervisor')) {
+//     return view("auth.additional-patient-info");
+// }
 
 class AdditionalPatientInfoController extends Controller
 {
+    //display addittional patient info page
+    public function patientInfo ()
+    {
+        return view("additional-patient-info");
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+
     }
 
     /**
