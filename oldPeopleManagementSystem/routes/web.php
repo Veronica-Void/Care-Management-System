@@ -14,6 +14,7 @@ Route::get('/', function () {
 Route::get('/home', [LoginPageController::class, 'home']);
 Route::get('/register', [LoginPageController::class, 'register']);
 Route::post('/register-user', [LoginPageController::class, 'registerUser'])->name('register-user');
+Route::post('/register', [LoginPageController::class, 'registerUser'])->name('register-user');
 Route::get('/login', [LoginPageController::class, 'login'])->name('login');
 Route::post('/login-user', [LoginPageController::class, 'loginUser'])->name('login-user');
 

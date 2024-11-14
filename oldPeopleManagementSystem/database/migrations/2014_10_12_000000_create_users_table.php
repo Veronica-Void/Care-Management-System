@@ -13,17 +13,11 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('role');
-            $table->string('f_name');
-            $table->string('l_name');
+            $table->string('name');
             $table->string('email')->unique();
-            $table->string('phone');
+            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('dob');
-            $table->boolean('is_approved')->default(false); // New column for approval status
-            $table->string('family_code')->nullable(); // For patients
-            $table->string('emergency_contact')->nullable(); // For patients
-            $table->string('relation_to_emergency_contact')->nullable(); // For patients
+            $table->rememberToken();
             $table->timestamps();
         });
     }
