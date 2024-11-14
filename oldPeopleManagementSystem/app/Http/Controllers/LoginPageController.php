@@ -220,4 +220,23 @@ class LoginPageController extends Controller
         $approvedUsers = LoginPage::where('is_approved', true)->get();
         return view('patients', compact('approvedUsers'));
     }
+    public function updateSalary(Request $request)
+{
+    // Validate the form inputs
+    $request->validate([
+        'id' => 'required|exists:users,id',
+        'salary' => 'required|numeric|min:0',
+    ]);
+
+    // Find the user by ID and update their salary
+    $user = LoginPage::find($request->id);
+    $user->salary = $request->salary;
+    
+    if ($user->save()) {
+        return redirect()->back()->with('success', 'Salary updated successfully');
+    } else {
+        return redirect()->back()->with('fail', 'Salary update failed');
+    }
+}
+
 }
