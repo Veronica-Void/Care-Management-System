@@ -16,7 +16,8 @@ return new class extends Migration
             $table->integer('patient_ID');
             $table->string('group');
             $table->date('admission_date');
-            //need to add foreign key patient name ref users_table.f_name + users_table.l_name
+            $table->string('patient_name');
+            $table->foreign(['patient_name'])->references(['f_name', 'l_name'])->on('users');
             $table->timestamps();
         });
     }
