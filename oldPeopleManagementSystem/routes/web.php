@@ -4,6 +4,7 @@
 use App\Http\Controllers\LoginPageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminPageController;
+use App\Http\Controllers\AdditionalPatientInfoController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -26,6 +27,6 @@ Route::get('approve/{id}', [LoginPageController::class, 'approveUser'])->name('a
 Route::get('deny/{id}', [LoginPageController::class, 'denyUser'])->name('denyUser');
 Route::get('/admin/role', [AdminPageController::class, 'role'])->name('admin-role');
 Route::post('/admin/role', [AdminPageController::class, 'makeRole'])->name('change-role');
-Route::get('/additional-patient-info', [])
+Route::get('/additionalPatientInfo', [AdditionalPatientInfoController::class, 'patientInfo'])->name('patientInfo')
 
 ?>
