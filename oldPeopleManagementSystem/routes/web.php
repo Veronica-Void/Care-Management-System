@@ -17,7 +17,7 @@ Route::post('/register-user', [LoginPageController::class, 'registerUser'])->nam
 Route::post('/register', [LoginPageController::class, 'registerUser'])->name('register-user');
 Route::get('/login', [LoginPageController::class, 'login'])->name('login');
 Route::post('/login-user', [LoginPageController::class, 'loginUser'])->name('login-user');
-
+Route::get('/patients',[LoginPageController::class,'patients'])->name('patients');
 Route::get('/dashboard', [LoginPageController::class, 'dashboard'])->name('dashboard');
 Route::get('/logout', [LoginPageController::class, 'logout'])->name('logout');
 // Admin routes
@@ -29,5 +29,4 @@ Route::get('deny/{id}', [LoginPageController::class, 'denyUser'])->name('denyUse
 Route::get('/admin/role', [AdminPageController::class, 'role'])->name('admin-role');
 Route::post('/admin/role', [AdminPageController::class, 'makeRole'])->name('change-role');
 Route::get('/additionalPatientInfo', [AdditionalPatientInfoController::class, 'patientInfo'])->name('patientInfo')
-
 ?>
