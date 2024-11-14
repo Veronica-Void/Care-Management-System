@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('dob');
             $table->boolean('is_approved')->default(false); // New column for approval status
+            $table->integer('salary')->nullable();
             $table->string('family_code')->nullable(); // For patients
             $table->string('emergency_contact')->nullable(); // For patients
             $table->string('relation_to_emergency_contact')->nullable(); // For patients

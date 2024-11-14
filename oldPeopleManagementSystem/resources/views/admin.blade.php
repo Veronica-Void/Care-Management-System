@@ -33,6 +33,7 @@
 <a href="create_roster" class="button-class">Create a Roster</a>
 <a href="/admin/role" class="button-class">Role page</a>
 <a href="approval"class="button-class">Approval page</a>
+<a href="patients"class="button-class">Patients page</a>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </html>

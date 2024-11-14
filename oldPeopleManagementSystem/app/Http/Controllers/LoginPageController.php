@@ -204,8 +204,20 @@ class LoginPageController extends Controller
             'formData' => $formData,
         ]);
     }
-    public function employees(){
+    public function employees()
+    {
+        // Retrieve the approved users
         $approvedUsers = LoginPage::where('is_approved', true)->get();
-        return view('employees', compact('approvedUsers'));
+    
+        // Retrieve the current user's role from the session
+        $userRole = Session::get('role');
+    
+        // Pass approved users and user role to the view
+        return view('employees', compact('approvedUsers', 'userRole'));
+    }
+    public function patients()
+    {
+        $approvedUsers = LoginPage::where('is_approved', true)->get();
+        return view('patients', compact('approvedUsers'));
     }
 }
