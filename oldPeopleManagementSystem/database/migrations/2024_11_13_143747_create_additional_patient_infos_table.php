@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('additional_patient_infos', function (Blueprint $table) {
             $table->id();
+            $table->integer('patient_ID');
+            $table->string('group');
+            $table->date('admission_date');
+            //need to add foreign key patient name ref users_table.f_name + users_table.l_name
             $table->timestamps();
         });
     }
