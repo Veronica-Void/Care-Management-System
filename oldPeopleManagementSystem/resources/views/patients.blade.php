@@ -20,7 +20,7 @@
         </thead>
         <tbody>
             @foreach($approvedUsers as $user)
-                @if($user->role !== 'admin' && $user->role !== 'doctor'&& $user->role !== 'supervisor'&& $user->role !== 'family member'&& $user->role !== 'caregiver')
+                @if($user->role !== 'admin' && $user->role !== 'doctor'&& $user->role !== 'supervisor'&& $user->role !== 'family_member'&& $user->role !== 'caregiver')
                     <tr>
                     <td>{{ $user->id }}</td>
                         <td>{{ $user->f_name }}</td>
@@ -34,6 +34,7 @@
             @endforeach
         </tbody>
     </table>
+    <a href="logout">Logout</a>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
