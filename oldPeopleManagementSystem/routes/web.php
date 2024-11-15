@@ -5,6 +5,7 @@ use App\Http\Controllers\LoginPageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminPageController;
 use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\AdditionalPatientInfoController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -14,9 +15,10 @@ Route::get('/', function () {
 Route::get('/home', [LoginPageController::class, 'home']);
 Route::get('/register', [LoginPageController::class, 'register']);
 Route::post('/register-user', [LoginPageController::class, 'registerUser'])->name('register-user');
+Route::post('/register', [LoginPageController::class, 'registerUser'])->name('register-user');
 Route::get('/login', [LoginPageController::class, 'login'])->name('login');
 Route::post('/login-user', [LoginPageController::class, 'loginUser'])->name('login-user');
-
+Route::get('/patients',[LoginPageController::class,'patients'])->name('patients');
 Route::get('/dashboard', [LoginPageController::class, 'dashboard'])->name('dashboard');
 Route::get('/logout', [LoginPageController::class, 'logout'])->name('logout');
 
@@ -26,10 +28,12 @@ Route::post('/make/appointment/create', [AppointmentController::class, 'makeAppo
 
 // Admin routes
 Route::get('/admin', [LoginPageController::class, 'admin'])->name('admin');
+Route::post('/update-salary', [LoginPageController::class, 'updateSalary'])->name('update.salary');
+Route::get('/employees',[LoginPageController::class, 'employees'])->name('employees');
 Route::get('approval', [LoginPageController::class, 'approval'])->name('approval');
 Route::get('approve/{id}', [LoginPageController::class, 'approveUser'])->name('approveUser');
 Route::get('deny/{id}', [LoginPageController::class, 'denyUser'])->name('denyUser');
 Route::get('/admin/role', [AdminPageController::class, 'role'])->name('admin-role');
 Route::post('/admin/role', [AdminPageController::class, 'makeRole'])->name('change-role');
-
+Route::get('/additionalPatientInfo', [AdditionalPatientInfoController::class, 'patientInfo'])->name('patientInfo')
 ?>
