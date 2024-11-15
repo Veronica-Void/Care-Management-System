@@ -4,6 +4,7 @@
 use App\Http\Controllers\LoginPageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminPageController;
+use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\AdditionalPatientInfoController;
 
 Route::get('/', function () {
@@ -20,6 +21,11 @@ Route::post('/login-user', [LoginPageController::class, 'loginUser'])->name('log
 Route::get('/patients',[LoginPageController::class,'patients'])->name('patients');
 Route::get('/dashboard', [LoginPageController::class, 'dashboard'])->name('dashboard');
 Route::get('/logout', [LoginPageController::class, 'logout'])->name('logout');
+
+Route::get('/make/appointment', [AppointmentController::class, 'appointment'])->name('appointments');
+Route::post('/make/appointment', [AppointmentController::class, 'getPatient'])->name('find_patient');
+Route::post('/make/appointment/create', [AppointmentController::class, 'makeAppointment'])->name('makeAppointment');
+
 // Admin routes
 Route::get('/admin', [LoginPageController::class, 'admin'])->name('admin');
 Route::post('/update-salary', [LoginPageController::class, 'updateSalary'])->name('update.salary');
