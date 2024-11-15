@@ -20,7 +20,7 @@
         </thead>
         <tbody>
             @foreach($approvedUsers as $user)
-                @if($user->role !== 'admin' && $user->role !== 'doctor'&& $user->role !== 'supervisor'&& $user->role !== 'family member'&& $user->role !== 'caregiver')
+                @if($user->role !== 'admin' && $user->role !== 'doctor'&& $user->role !== 'supervisor'&& $user->role !== 'family_member'&& $user->role !== 'caregiver')
                     <tr>
                     <td>{{ $user->id }}</td>
                         <td>{{ $user->f_name }}</td>
