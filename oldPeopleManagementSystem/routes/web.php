@@ -4,6 +4,7 @@
 use App\Http\Controllers\LoginPageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminPageController;
+use App\Http\Controllers\AppointmentController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -18,6 +19,11 @@ Route::post('/login-user', [LoginPageController::class, 'loginUser'])->name('log
 
 Route::get('/dashboard', [LoginPageController::class, 'dashboard'])->name('dashboard');
 Route::get('/logout', [LoginPageController::class, 'logout'])->name('logout');
+
+Route::get('/make/appointment', [AppointmentController::class, 'appointment'])->name('appointments');
+Route::post('/make/appointment', [AppointmentController::class, 'getPatient'])->name('find_patient');
+Route::post('/make/appointment/create', [AppointmentController::class, 'makeAppointment'])->name('makeAppointment');
+
 // Admin routes
 Route::get('/admin', [LoginPageController::class, 'admin'])->name('admin');
 Route::get('approval', [LoginPageController::class, 'approval'])->name('approval');
