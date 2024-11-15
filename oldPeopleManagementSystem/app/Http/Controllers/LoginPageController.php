@@ -10,9 +10,9 @@ use Illuminate\Support\Facades\Session;
 class LoginPageController extends Controller
 {
     // Display the home page
-    public function home()
+    public function caregiver()
     {
-        return view("home");
+        return view("caregiver");
     }
 
     // Show the registration page
@@ -105,6 +105,8 @@ class LoginPageController extends Controller
             Session::put('role', $user->role);
             if ($user->role == 'admin') {
                 return redirect()->route('admin');
+            }elseif ($user->role == 'caregiver'){
+                return redirect()->route('caregiver');
             }
             return redirect()->route('dashboard');
         }
