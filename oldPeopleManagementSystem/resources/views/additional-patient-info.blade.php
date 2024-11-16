@@ -11,16 +11,28 @@
     <table>
         <thead>
             <th>Patient ID</th>
-            <th>Patient Name</th>
             <th>Group</th>
             <th>Admission Date</th>
+            <th>Patient Name</th>
         </thead>
         <tbody>
             <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>
+                    <input type="text" placeholder="Create 5-digit patient ID">
+                </td>
+
+                <td>
+                    <input type="text" placeholder="Ex: A, B, C, D">
+                </td>
+
+                <td>
+                    <input type="date" placeholder="Select admission date">
+                </td>
+                
+                <td>
+                    patient name here
+                </td>
+
             </tr>
         </tbody>
     </table>
