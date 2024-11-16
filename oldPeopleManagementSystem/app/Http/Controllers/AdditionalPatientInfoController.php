@@ -17,6 +17,19 @@ class AdditionalPatientInfoController extends Controller
     {
         return view("additional-patient-info");
     }
+
+    public function showPatientName () {
+        //getting approved users from the db
+        $approvedUsers = User::where('is_approved', 1)->get();
+
+        //checking if approvedUsers is not empty
+        if($approvedUsers->isEmpty()){
+            dd('No approved users found.');
+        }
+        
+        //if user is approved, pass that data to the view
+        return view("additional-patient-info", compact('approvedUsers'));
+    }
     /**
      * Display a listing of the resource.
      */
@@ -44,9 +57,9 @@ class AdditionalPatientInfoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(additionalPatientInfo $additionalPatientInfo)
+    public function show (additionalPatientInfo $additionalPatientInfo)
     {
-        //
+
     }
 
     /**
