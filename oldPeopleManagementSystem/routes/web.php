@@ -37,6 +37,8 @@ Route::get('deny/{id}', [LoginPageController::class, 'denyUser'])->name('denyUse
 Route::get('/admin/role', [AdminPageController::class, 'role'])->name('admin-role');
 Route::post('/admin/role', [AdminPageController::class, 'makeRole'])->name('change-role');
 Route::get('/additionalPatientInfo', [AdditionalPatientInfoController::class, 'patientInfo'])->name('patientInfo');
+
 //Caregiver Routes
 Route::get('/caregiver',[LoginPageController::class,'caregiver'])->name('caregiver');
+
 ?>
