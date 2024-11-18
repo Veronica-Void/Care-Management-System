@@ -23,10 +23,6 @@ Route::get('/patients',[LoginPageController::class,'patients'])->name('patients'
 Route::get('/dashboard', [LoginPageController::class, 'dashboard'])->name('dashboard');
 Route::get('/logout', [LoginPageController::class, 'logout'])->name('logout');
 
-Route::get('/make/appointment', [AppointmentController::class, 'appointment'])->name('appointments');
-Route::post('/make/appointment', [AppointmentController::class, 'getPatient'])->name('find_patient');
-Route::post('/make/appointment/create', [AppointmentController::class, 'makeAppointment'])->name('makeAppointment');
-
 // Admin routes
 Route::get('/admin', [LoginPageController::class, 'admin'])->name('admin');
 Route::post('/update-salary', [LoginPageController::class, 'updateSalary'])->name('update.salary');
@@ -37,6 +33,12 @@ Route::get('deny/{id}', [LoginPageController::class, 'denyUser'])->name('denyUse
 Route::get('/admin/role', [AdminPageController::class, 'role'])->name('admin-role');
 Route::post('/admin/role', [AdminPageController::class, 'makeRole'])->name('change-role');
 Route::get('/additionalPatientInfo', [AdditionalPatientInfoController::class, 'patientInfo'])->name('patientInfo');
+// Also for Supervisor
+Route::get('/make/appointment', [AppointmentController::class, 'appointment'])->name('appointments');
+Route::post('/make/appointment', [AppointmentController::class, 'getPatient'])->name('find_patient');
+Route::post('/make/appointment/create', [AppointmentController::class, 'makeAppointment'])->name('makeAppointment');
+
 //Caregiver Routes
 Route::get('/caregiver',[LoginPageController::class,'caregiver'])->name('caregiver');
+
 ?>
