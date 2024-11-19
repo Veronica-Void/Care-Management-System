@@ -55,4 +55,7 @@ Route::post('/make/appointment/create', [AppointmentController::class, 'makeAppo
 //Caregiver Routes
 Route::get('/caregiver',[LoginPageController::class,'caregiver'])->name('caregiver');
 
+
+
+
 ?>
