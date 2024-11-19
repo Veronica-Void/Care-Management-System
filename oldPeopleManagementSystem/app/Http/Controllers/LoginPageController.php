@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\LoginPage;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Schema;
 
 class LoginPageController extends Controller
 {
@@ -217,6 +218,25 @@ class LoginPageController extends Controller
         // Pass approved users and user role to the view
         return view('employees', compact('approvedUsers', 'userRole'));
     }
+
+    // Searches the database for the inqured term
+    public function searchForTerm(Request $request)
+    {
+        $request->validate([
+            'searchTerm' => 'required',
+            'searched' => 'required',
+        ]);
+
+        // Retrieve the approved users
+        $approvedUsers = LoginPage::where('is_approved', true)->where($request->searchTerm, $request->searched)->get();
+    
+        // Retrieve the current user's role from the session
+        $userRole = Session::get('role');
+    
+        // Pass approved users and user role to the view
+        return view('employees', compact('approvedUsers', 'userRole'));
+    }
+
     public function patients()
     {
         $approvedUsers = LoginPage::where('is_approved', true)->get();
