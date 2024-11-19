@@ -9,4 +9,5 @@ use App\Models\Post;
 class additionalPatientInfo extends Model
 {
     use HasFactory;
+        protected $table = 'additional_patient_infos';
 }

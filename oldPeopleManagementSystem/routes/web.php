@@ -42,10 +42,15 @@ Route::get('deny/{id}', [LoginPageController::class, 'denyUser'])->name('denyUse
 Route::get('/admin/role', [AdminPageController::class, 'role'])->name('admin-role');
 Route::post('/admin/role', [AdminPageController::class, 'makeRole'])->name('change-role');
 Route::get('/additionalPatientInfo', [AdditionalPatientInfoController::class, 'patientInfo'])->name('patientInfo');
+Route::post('/additionalPatientInfo', [AdditionalPatientInfoController::class, 'patientInfo'])->name('patientInfo');
+Route::post('/additional-patient-info', [AdditionalPatientInfoController::class, 'store'])->name('additional-patient-info.store');
+
+
 // Also for Supervisor
 Route::get('/make/appointment', [AppointmentController::class, 'appointment'])->name('appointments');
 Route::post('/make/appointment', [AppointmentController::class, 'getPatient'])->name('find_patient');
 Route::post('/make/appointment/create', [AppointmentController::class, 'makeAppointment'])->name('makeAppointment');
+
 
 //Caregiver Routes
 Route::get('/caregiver',[LoginPageController::class,'caregiver'])->name('caregiver');
