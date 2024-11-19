@@ -6,6 +6,8 @@
     <title>Make A Payment</title>
 </head>
 <body>
-    
+    <form action="{{ route('payment.store') }}" method="POST">
+        @csrf
+    </form>
 </body>
 </html>
