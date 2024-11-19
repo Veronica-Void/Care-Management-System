@@ -41,6 +41,7 @@
                     <tr>
                         <th>ID</th>
                         <th>First Name</th>
+                        <th>Last Name</th>
                         <th>Role</th>
                         <th>Phone#</th>
                         <th>Date Of Birth</th>
@@ -54,6 +55,7 @@
                             <tr>
                             <td>{{ $user->id }}</td>
                                 <td>{{ $user->f_name }}</td>
+                                <td>{{ $user->l_name }}</td>
                                 <td>{{ $user->role }}</td>
                                 <td>{{ $user->phone }}</td>
                                 <td>{{ $user->dob }}</td>

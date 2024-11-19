@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\additionalPatientInfo;
 use Illuminate\Http\Request;
+// use App\Models\additionalPatientInfo;
+use App\Models\AdditionalPatientInfo;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
+
 
 // if ((Session::get('role') == 'admin') or (Session::get('role') == 'supervisor')) {
 //     return view("auth.additional-patient-info");
@@ -18,18 +21,12 @@ class AdditionalPatientInfoController extends Controller
         return view("additional-patient-info");
     }
 
-    public function showPatientName () {
-        //getting approved users from the db
-        $approvedUsers = User::where('is_approved', 1)->get();
-
-        //checking if approvedUsers is not empty
-        if($approvedUsers->isEmpty()){
-            dd('No approved users found.');
-        }
+    // public function showPatient ()
+    // {
+    //     $patients = User::where('role', 'patient')->get();
+    //     return view('additional-patient-info', compact('patients'));
         
-        //if user is approved, pass that data to the view
-        return view("additional-patient-info", compact('approvedUsers'));
-    }
+    // }
     /**
      * Display a listing of the resource.
      */
@@ -51,13 +48,29 @@ class AdditionalPatientInfoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if($request->roles === 'admin') {
+            $request->validate([
+                'patient_id' => 'required|integer|max:5',
+                'group' => 'required|string',
+                'admission_date' => 'required|date',
+            ]);
+
+        }
+        
+
+        $patientInfo = new AdditionalPatientInfo();
+        $patientInfo->patient_id = $request->input('patient_id');
+        $patientInfo->group = $request->input('group');
+        $patientInfo->admission_date = $request->input('admission_date');
+        $patientInfo->save();
+
+        return redirect()->route('admin')->with('success', 'Patient info saved successfully');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show (additionalPatientInfo $additionalPatientInfo)
+    public function show (AdditionalPatientInfo $additionalPatientInfo)
     {
 
     }
@@ -65,7 +78,7 @@ class AdditionalPatientInfoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(additionalPatientInfo $additionalPatientInfo)
+    public function edit(AdditionalPatientInfo $additionalPatientInfo)
     {
         //
     }
@@ -73,7 +86,7 @@ class AdditionalPatientInfoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, additionalPatientInfo $additionalPatientInfo)
+    public function update(Request $request, AdditionalPatientInfo $additionalPatientInfo)
     {
         //
     }
@@ -81,7 +94,7 @@ class AdditionalPatientInfoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(additionalPatientInfo $additionalPatientInfo)
+    public function destroy(AdditionalPatientInfo $additionalPatientInfo)
     {
         //
     }

@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\appointment;
+use App\Models\Appointment;
+use App\Models\Roster;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
+use Symfony\Contracts\Service\Attribute\Required;
 
 class AppointmentController extends Controller
 {
-    // USE $appointment
-    public function appointment()
+      public function appointment()
     {
         if ((Session::get('role') !== 'admin') and (Session::get('role') !== 'supervisor')) {
             return back()->with('fail','You must be an admin');
@@ -67,3 +68,6 @@ class AppointmentController extends Controller
         return view("auth.makeAppointment", compact("doctors"), compact("patient", "patient_id"));
     }
 }
+
+
+
