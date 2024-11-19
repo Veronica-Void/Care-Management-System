@@ -68,8 +68,39 @@
         </div>
     </div>
 
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-secondary text-white">
+            <h3>Search</h3>
+        </div>
+        <div class="card-body">
+            <form action="{{ route('search') }}" method="POST">
+                @csrf
+                <div class="form-group mb-3">
+                    <label for="id">Select search category</label>
+                    <select name="searchTerm" id="searchTerm" class="form-control">
+                        <option value="id">ID</option>
+                        <option value="role">Role</option>
+                        <option value="f_name">First Name</option>
+                        <option value="l_name">Last Name</option>
+                        <option value="email">Email Address</option>
+                        <option value="phone">Phone Number</option>
+                        <option value="dob">Date of Birth</option>
+                        <option value="salary">Salary</option>
+                    </select>
+                </div>
+                <div class="form-group mb-3">
+                        <label for="salary">Enter search term</label>
+                        <input type="text" class="form-control" placeholder="Enter search term" name="searched" id="searched">
+                    </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     @if($userRole == 'admin')
-        <div class="card shadow-sm">
+        <div class="card shadow-sm mb-4">
             <div class="card-header bg-secondary text-white">
                 <h3>Admin Salary Update</h3>
             </div>
