@@ -13,7 +13,7 @@ class LoginPageController extends Controller
     // Display the home page
     public function caregiver()
     {
-        return view("caregiver");
+        return view("caregiverHome");
     }
 
     // Show the registration page

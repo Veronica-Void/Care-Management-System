@@ -13,11 +13,6 @@ return new class extends Migration
     {
         Schema::create('additional_patient_infos', function (Blueprint $table) {
             $table->id();
-            $table->integer('patient_ID');
-            $table->string('group');
-            $table->date('admission_date');
-            $table->string('patient_name');
-            $table->foreign('patient_name')->references('f_name')->on('users');
             $table->timestamps();
         });
     }
