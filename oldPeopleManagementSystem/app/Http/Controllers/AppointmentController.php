@@ -59,10 +59,10 @@ class AppointmentController extends Controller
         $doctors = DB::table('users')->where('role', 'doctor')->get()->pluck('f_name');
 
         $appointment = new Appointment();
-        $appointment->patient_id = $patient_id;
+        $appointment->patient_id = $request->patient_id;
         $appointment->appt_date = $request->dob;
         $appointment->doctor = $request->doctor;
-        $appointment->patient_name = $patient;
+        $appointment->patient_name = $request->patient_name;
         $appointment->save();
 
         return view("auth.makeAppointment", compact("doctors"), compact("patient", "patient_id"));

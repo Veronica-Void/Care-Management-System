@@ -16,7 +16,6 @@ return new class extends Migration
             $table->integer('patient_ID');
             $table->string('group');
             $table->date('admission_date');
-            $table->string('patient_name');
             $table->timestamps();
         });
     }
