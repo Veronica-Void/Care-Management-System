@@ -6,9 +6,24 @@
     <title>Employees</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+    <header style="display: block; margin-top: 20px;">
+        @if(Session::get('role') == 'admin')
+            <a href="/admin" class="bg-primary-subtle text-black" style="border-radius: 10px; border: solid; border-color: black; text-align: center; width: 10%; padding: 0.1% 0.5% 0.1% 0.5%; margin-top: 1%; margin-left: 1%; text-decoration: none;">Home</a>
+        @endif
+        <a href="make_appointment" class="bg-primary-subtle text-black" style="border-radius: 10px; border: solid; border-color: black; text-align: center; width: 10%; padding: 0.1%; margin-top: 1%; text-decoration: none;">Schedule appointments for patients</a>
+        <a href="employees" class="bg-primary-subtle text-black" style="border-radius: 10px; border: solid; border-color: black; text-align: center; width: 10%; padding: 0.1%; margin-top: 1%; text-decoration: none;">View Employees</a>
+        <a href="payment" class="bg-primary-subtle text-black" style="border-radius: 10px; border: solid; border-color: black; text-align: center; width: 10%; padding: 0.1%; margin-top: 1%; text-decoration: none;">Manage Payments</a>
+        <a href="roster" class="bg-primary-subtle text-black" style="border-radius: 10px; border: solid; border-color: black; text-align: center; width: 10%; padding: 0.1%; margin-top: 1%; text-decoration: none;">View the roster</a>
+        <a href="create_roster" class="bg-primary-subtle text-black" style="border-radius: 10px; border: solid; border-color: black; text-align: center; width: 10%; padding: 0.1%; margin-top: 1%; text-decoration: none;">Create a Roster</a>
+        <a href="/admin/role" class="bg-primary-subtle text-black" style="border-radius: 10px; border: solid; border-color: black; text-align: center; width: 10%; padding: 0.1%; margin-top: 1%; text-decoration: none;">Role page</a>
+        <a href="approval" class="bg-primary-subtle text-black" style="border-radius: 10px; border: solid; border-color: black; text-align: center; width: 10%; padding: 0.1%; margin-top: 1%; text-decoration: none;">Approval page</a>
+        <a href="patients" class="bg-primary-subtle text-black" style="border-radius: 10px; border: solid; border-color: black; text-align: center; width: 10%; padding: 0.1%; margin-top: 1%; text-decoration: none;">Patients page</a>
+        <a href="/additionalPatientInfo" class="bg-primary-subtle text-black" style="border-radius: 10px; border: solid; border-color: black; text-align: center; width: 10%; padding: 0.1%; margin-top: 1%; text-decoration: none;">Patient Info</a>
+        <a href="/make/appointment" class="bg-primary-subtle text-black" style="border-radius: 10px; border: solid; border-color: black; text-align: center; width: 10%; padding: 0.1%; margin-top: 1%; text-decoration: none;">Make Appointment</a>
+    </header>
 <body>
 
-<div class="container mt-5">
+<div class="container mt-3">
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
@@ -27,6 +42,7 @@
                     <tr>
                         <th>ID</th>
                         <th>First Name</th>
+                        <th>Last Name</th>
                         <th>Role</th>
                         <th>Phone#</th>
                         <th>Date Of Birth</th>
@@ -40,6 +56,7 @@
                             <tr>
                             <td>{{ $user->id }}</td>
                                 <td>{{ $user->f_name }}</td>
+                                <td>{{ $user->l_name }}</td>
                                 <td>{{ $user->role }}</td>
                                 <td>{{ $user->phone }}</td>
                                 <td>{{ $user->dob }}</td>
@@ -53,8 +70,39 @@
         </div>
     </div>
 
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-secondary text-white">
+            <h3>Search</h3>
+        </div>
+        <div class="card-body">
+            <form action="{{ route('search') }}" method="POST">
+                @csrf
+                <div class="form-group mb-3">
+                    <label for="id">Select search category</label>
+                    <select name="searchTerm" id="searchTerm" class="form-control">
+                        <option value="id">ID</option>
+                        <option value="role">Role</option>
+                        <option value="f_name">First Name</option>
+                        <option value="l_name">Last Name</option>
+                        <option value="email">Email Address</option>
+                        <option value="phone">Phone Number</option>
+                        <option value="dob">Date of Birth</option>
+                        <option value="salary">Salary</option>
+                    </select>
+                </div>
+                <div class="form-group mb-3">
+                        <label for="salary">Enter search term</label>
+                        <input type="text" class="form-control" placeholder="Enter search term" name="searched" id="searched">
+                    </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     @if($userRole == 'admin')
-        <div class="card shadow-sm">
+        <div class="card shadow-sm mb-4">
             <div class="card-header bg-secondary text-white">
                 <h3>Admin Salary Update</h3>
             </div>

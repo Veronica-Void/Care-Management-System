@@ -6,13 +6,15 @@ use Illuminate\Http\Request;
 use App\Models\LoginPage;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
-
+use Illuminate\Support\Facades\Schema;
+use App\Models\Roster;
+use Illuminate\Support\Facades\DB;
 class LoginPageController extends Controller
 {
     // Display the home page
     public function caregiver()
     {
-        return view("caregiver");
+        return view("caregiverHome");
     }
 
     // Show the registration page
@@ -107,6 +109,8 @@ class LoginPageController extends Controller
                 return redirect()->route('admin');
             }elseif ($user->role == 'caregiver'){
                 return redirect()->route('caregiver');
+            }elseif ($user->role == 'patient'){
+                return redirect()->route('patientHome');
             }
             return redirect()->route('dashboard');
         }
@@ -217,6 +221,25 @@ class LoginPageController extends Controller
         // Pass approved users and user role to the view
         return view('employees', compact('approvedUsers', 'userRole'));
     }
+
+    // Searches the database for the inqured term
+    public function searchForTerm(Request $request)
+    {
+        $request->validate([
+            'searchTerm' => 'required',
+            'searched' => 'required',
+        ]);
+
+        // Retrieve the approved users
+        $approvedUsers = LoginPage::where('is_approved', true)->where($request->searchTerm, $request->searched)->get();
+    
+        // Retrieve the current user's role from the session
+        $userRole = Session::get('role');
+    
+        // Pass approved users and user role to the view
+        return view('employees', compact('approvedUsers', 'userRole'));
+    }
+
     public function patients()
     {
         $approvedUsers = LoginPage::where('is_approved', true)->get();
@@ -240,5 +263,52 @@ class LoginPageController extends Controller
         return redirect()->back()->with('fail', 'Salary update failed');
     }
 }
+    public function patientHome(){
+        return view('patientHome');
+    }
+    public function createRoster(Request $request)
+    {
+        // Validate the request data
+        $request->validate([
+            'supervisor_name' => 'required|string',
+            'doctor_name' => 'required|string',
+            'caregiver_name' => 'required|string',
+            'group'=> 'required|string',
+            'date' => 'required|date',
+        ]);
+    
+        // Create the roster
+        Roster::create([
+            'supervisor_name' => $request->input('supervisor_name'),
+            'doctor_name' => $request->input('doctor_name'),
+            'caregiver_name' => $request->input('caregiver_name'),
+            'group'=> $request->input('group'),
+            'date' => $request->input('date'),
+        ]);
+    
+        return back()->with('success', 'Roster created successfully!');
+    }
 
+    public function newRoster()
+    {
+        // Fetch doctors, caregivers, and supervisors
+        $doctors = DB::table('users')->where('role', 'doctor')->get(['id', 'f_name']);
+        $caregivers = DB::table('users')->where('role', 'caregiver')->get(['id', 'f_name']);
+        $supervisors = DB::table('users')->where('role', 'supervisor')->get(['id', 'f_name']);
+
+        // Pass data to the view
+        return view('newRoster', compact('doctors', 'caregivers', 'supervisors'));
+    }
+
+
+
+    // Method to display all rosters
+    public function viewRoster()
+    {
+        // Fetch all rosters
+        $rosters = Roster::all();
+
+        // Return the view with the roster data
+        return view('viewRoster', compact('rosters'));
+    }
 }
