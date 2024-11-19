@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('group');
             $table->date('admission_date');
             $table->string('patient_name');
-            $table->foreign('patient_name')->references('f_name')->on('users');
             $table->timestamps();
         });
     }
