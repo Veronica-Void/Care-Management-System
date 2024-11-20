@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminPageController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\AdditionalPatientInfoController;
+use App\Http\Controllers\PatientInfoController;
 use App\Http\Controllers\PaymentController;
 
 Route::get('/', function () {
@@ -57,7 +58,9 @@ Route::post('/make/appointment/create', [AppointmentController::class, 'makeAppo
 
 
 //Caregiver Routes
-Route::get('/caregiver',[LoginPageController::class,'caregiver'])->name('caregiver');
+Route::get('/caregiver',[PatientInfoController::class,'caregiver'])->name('caregiver');
+Route::post('/caregiver',[PatientInfoController::class,'getPatient'])->name('find_patient');
+Route::post('/caregiver/create',[PatientInfoController::class,'caregiver'])->name('caregiver');
 
 
 
