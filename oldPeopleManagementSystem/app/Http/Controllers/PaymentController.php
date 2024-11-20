@@ -40,7 +40,6 @@ class PaymentController extends Controller
         }
 
         $data = new PaymentController();
-        $data->patient_id = $request->input('patient_id');
         $data->total_due = $request->input('total_due');
         $data->new_payment = $request->input('new_payment');
 
