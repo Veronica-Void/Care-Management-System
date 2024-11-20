@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
+            $table->integer('patient_ID');
+            $table->integer('total_due');
+            $table->integer('new_payment');
             $table->timestamps();
         });
     }

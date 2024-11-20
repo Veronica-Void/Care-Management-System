@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\payment;
 use Illuminate\Http\Request;
+use App\Models\payment;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 
 class PaymentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function viewPaymentPage()
     {
-        //
+        return view('payment');
     }
 
     /**
@@ -28,7 +30,21 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //validate incoming data
+        if($request->roles === 'admin') {
+            $request->validate([
+                'patient_id' => 'required',
+                'total_due' => 'required',
+                'new_payment' => 'required',
+            ]);
+        }
+
+        $data = new PaymentController();
+        $data->patient_id = $request->input('patient_id');
+        $data->total_due = $request->input('total_due');
+        $data->new_payment = $request->input('new_payment');
+
+        return redirect()->route('admin')->with('success', 'Payment has been made successfully');
     }
 
     /**
