@@ -7,7 +7,7 @@ use App\Http\Controllers\AdminPageController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\AdditionalPatientInfoController;
 use App\Http\Controllers\PatientInfoController;
-
+use App\Http\Controllers\PaymentController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -45,6 +45,10 @@ Route::post('/admin/role', [AdminPageController::class, 'makeRole'])->name('chan
 Route::get('/additionalPatientInfo', [AdditionalPatientInfoController::class, 'patientInfo'])->name('patientInfo');
 Route::post('/additionalPatientInfo', [AdditionalPatientInfoController::class, 'patientInfo'])->name('patientInfo');
 Route::post('/additional-patient-info', [AdditionalPatientInfoController::class, 'store'])->name('additional-patient-info.store');
+//Payment routes - Can only be accessed by admin
+Route::get('/payment', [PaymentController::class, 'viewPaymentPage'])->name('viewPaymentPage');
+Route::post('payment', [PaymentController::class, 'store'])->name('payment.store');
+
 
 
 // Also for Supervisor
@@ -57,5 +61,8 @@ Route::post('/make/appointment/create', [AppointmentController::class, 'makeAppo
 Route::get('/caregiver', [PatientInfoController::class, 'caregiver'])->name('caregiver');
 Route::post('/caregiver', [PatientInfoController::class, 'checkData'])->name('check');
 Route::post('/caregiver/find_patient', [PatientInfoController::class, 'getPatient'])->name('getPatient');
+
+
+
 
 ?>
