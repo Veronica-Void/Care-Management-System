@@ -46,9 +46,6 @@
                     <td>
                         <input type="date" name="admission_date" placeholder="Select admission date">
                     </td>
-
-                    
-
                 </tr>
             </tbody>
         </table>

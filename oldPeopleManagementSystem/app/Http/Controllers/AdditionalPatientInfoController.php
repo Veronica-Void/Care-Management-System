@@ -3,15 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-// use App\Models\additionalPatientInfo;
 use App\Models\AdditionalPatientInfo;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 
-
-// if ((Session::get('role') == 'admin') or (Session::get('role') == 'supervisor')) {
-//     return view("auth.additional-patient-info");
-// }
 
 class AdditionalPatientInfoController extends Controller
 {
