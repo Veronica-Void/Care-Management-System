@@ -11,11 +11,6 @@ use App\Models\Roster;
 use Illuminate\Support\Facades\DB;
 class LoginPageController extends Controller
 {
-    // Display the home page
-    public function caregiver()
-    {
-        return view("caregiverHome");
-    }
 
     // Show the registration page
     public function register(Request $request)
