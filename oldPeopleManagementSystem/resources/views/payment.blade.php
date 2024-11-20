@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Patient Info</title>
+    <title>Make A Payment</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-    <header style="display: block; margin-top: 20px;">
+<header style="display: block; margin-top: 20px;">
         @if(Session::get('role') == 'admin')
             <a href="/admin" class="bg-primary-subtle text-black" style="border-radius: 10px; border: solid; border-color: black; text-align: center; width: 10%; padding: 0.1% 0.5% 0.1% 0.5%; margin-top: 1%; margin-left: 1%; text-decoration: none;">Home</a>
         @endif
@@ -22,38 +22,32 @@
         <a href="/make/appointment" class="bg-primary-subtle text-black" style="border-radius: 10px; border: solid; border-color: black; text-align: center; width: 10%; padding: 0.1%; margin-top: 1%; text-decoration: none;">Make Appointment</a>
     </header>
 <body>
-    
-    <h1>Welcome to the additional patient info page!</h1>
-    <form action="{{ route('additional-patient-info.store') }}" method="POST">
+    <h1>You have reached the payment page!</h1>
+    <form action="{{ route('payment.store') }}" method="POST">
         @csrf
         <table>
             <thead>
                 <th>Patient ID</th>
-                <th>Group</th>
-                <th>Admission Date</th>
-                <th>Patient Name</th>
+                <th>Total Due</th>
+                <th>New Payment</th>
             </thead>
             <tbody>
                 <tr>
                     <td>
-                        <input type="text" name="patient_id" placeholder="Create 5-digit patient ID">
+                        patient ID goes here
                     </td>
 
                     <td>
-                        <input type="text" name="group" placeholder="Ex: A, B, C, D">
+                        <input type="text" name="total_due" placeholder="Enter total payment due">
                     </td>
-
+                        
                     <td>
-                        <input type="date" name="admission_date" placeholder="Select admission date">
-                    </td>
+                        <input type="text" name="new_payment" placeholder="Add a new payment">
+                    </td> 
                 </tr>
             </tbody>
         </table>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Update</button>
     </form>
-    
-
-    <a href="logout">Logout</a>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
