@@ -41,7 +41,7 @@ class PatientInfoController extends Controller
 
     public function getPatient(Request $request)
     {
-        alert("WHAT");
+        alert("qqq");
         $id = Session::get('loginId');
         $care_first = DB::table('users')->where('id', $id)->get()->pluck("f_name");
         $care_last = DB::table('users')->where('id', $id)->get()->pluck("l_name");
@@ -57,7 +57,7 @@ class PatientInfoController extends Controller
     // Edits the database and inputs ONLY the checked data
     public function checkData(Request $request)
     {
-        alert("HELP");
+        alert("qqq");
         if ($request->morning_med != 1){$request->morning_med = 0;}
         if ($request->afternoon_med != 1){$request->afternoon_med = 0;}
         if ($request->night_med != 1){$request->night_med = 0;}
