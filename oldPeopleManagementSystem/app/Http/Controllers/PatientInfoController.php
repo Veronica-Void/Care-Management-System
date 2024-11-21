@@ -36,6 +36,53 @@ class PatientInfoController extends Controller
             $patients = "N/A";
         }
 
-        return view("caregiverHome", compact("patients"));
+        return view("careGiverHome", compact("patients"));
+    }
+
+    public function getPatient(Request $request)
+    {
+        alert("qqq");
+        $id = Session::get('loginId');
+        $care_first = DB::table('users')->where('id', $id)->get()->pluck("f_name");
+        $care_last = DB::table('users')->where('id', $id)->get()->pluck("l_name");
+        $patients = DB::table('patient_infos')->where('caregiver_first', $care_first)->where('caregiver_last', $care_last)->get()->pluck('patient_name');
+
+        if (count($patients) == 0) {
+            $patients = "N/A";
+        }
+
+        return view("careGiverHome", compact("patients"));
+    }
+
+    // Edits the database and inputs ONLY the checked data
+    public function checkData(Request $request)
+    {
+        alert("qqq");
+        if ($request->morning_med != 1){$request->morning_med = 0;}
+        if ($request->afternoon_med != 1){$request->afternoon_med = 0;}
+        if ($request->night_med != 1){$request->night_med = 0;}
+        if ($request->breakfast != 1){$request->breakfast = 0;}
+        if ($request->lunch != 1){$request->lunch = 0;}
+        if ($request->dinner != 1){$request->dinner = 0;}
+
+        $newData = DB::table('patient_infos')->where('patient_name', $request->patient)->get();
+        $newData->morning_meds = $request->morning_med;
+        $newData->afternoon_meds = $request->afternoon_med;
+        $newData->night_meds = $request->night_med;
+        $newData->breakfast = $request->breakfast;
+        $newData->lunch = $request->lunch;
+        $newData->dinner = $request->dinner;
+        $newData->save();
+
+        $id = Session::get('loginId');
+        $care_first = DB::table('users')->where('id', $id)->get()->pluck("f_name");
+        $care_last = DB::table('users')->where('id', $id)->get()->pluck("l_name");
+        $patients = DB::table('patient_infos')->where('caregiver_first', $care_first)->where('caregiver_last', $care_last)->get()->pluck('patient_name');
+
+        if (count($patients) == 0) {
+            $patients = "N/A";
+        }
+
+        return view ("careGiverHome", compact("patients"));
     }
 }
