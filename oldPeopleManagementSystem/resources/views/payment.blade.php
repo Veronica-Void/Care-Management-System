@@ -49,5 +49,6 @@
         </table>
         <button type="submit" class="btn btn-primary">Update</button>
     </form>
+    <a href="/logout">Logout</a>
 </body>
 </html>

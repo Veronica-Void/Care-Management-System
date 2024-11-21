@@ -25,5 +25,6 @@
 <a href="" class="btn approve">Confirm</a>
 <a href="" class="btn deny">Clear</a>
 </form>
+<a href="/logout">Logout</a>
 </body>
 </html>
