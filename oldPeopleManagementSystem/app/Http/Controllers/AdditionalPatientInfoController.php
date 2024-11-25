@@ -49,7 +49,7 @@ class AdditionalPatientInfoController extends Controller
                 'patient_id' => 'required|integer|max:5',
                 'group' => 'required|string',
                 'admission_date' => 'required|date',
-                ''
+                'patient_name' => 'required|string',
             ]);
 
         }
@@ -59,6 +59,7 @@ class AdditionalPatientInfoController extends Controller
         $patientInfo->patient_id = $request->input('patient_id');
         $patientInfo->group = $request->input('group');
         $patientInfo->admission_date = $request->input('admission_date');
+        $patient_name->patient_name = DB::table('users')->where('f_name', $f_name)->and('role', 'patient')->value('patient_name');
         $patientInfo->save();
 
         return redirect()->route('admin')->with('success', 'Patient info saved successfully');
