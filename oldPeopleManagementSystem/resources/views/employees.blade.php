@@ -53,6 +53,23 @@
             </div>
         @endif
     </div>
+    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#adminHeader" aria-expanded="false" aria-controls="adminHeader">
+        Toggle Menu
+    </button>
+    <div class="collapse mt-3" id="adminHeader">
+        @if(Session::get('role') == 'supervisor')
+            <div class="d-flex flex-wrap justify-content-center">
+            <a href="/dashboard" class="bg-info header-link">Home</a>
+                <a href="/make/appointment" class="bg-info header-link">Make Appointments</a>
+                <a href="employees" class="bg-info header-link">View Employees</a>
+                <a href="viewRoster" class="bg-info header-link">View Roster</a>
+                <a href="newRoster" class="bg-info header-link">Create Roster</a>
+                <a href="admin/approval" class="bg-info header-link">Approval Page</a>
+                <a href="patients" class="bg-info header-link">Patients Page</a>
+                <a href="/additionalPatientInfo" class="bg-info header-link">Patient Info</a>
+            </div>
+        @endif
+    </div>
 </header>
 <body>
 

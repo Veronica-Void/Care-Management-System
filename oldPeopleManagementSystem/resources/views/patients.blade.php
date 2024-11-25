@@ -41,6 +41,7 @@
     <div class="collapse mt-3" id="adminHeader">
         @if(Session::get('role') == 'admin')
             <div class="d-flex flex-wrap justify-content-center">
+            <a href="/admin" class="bg-info header-link">Home</a>
                 <a href="/make/appointment" class="bg-info header-link">Make Appointments</a>
                 <a href="employees" class="bg-info header-link">View Employees</a>
                 <a href="payment" class="bg-info header-link">Manage Payments</a>
@@ -48,7 +49,6 @@
                 <a href="newRoster" class="bg-info header-link">Create Roster</a>
                 <a href="/admin/role" class="bg-info header-link">Role Page</a>
                 <a href="admin/approval" class="bg-info header-link">Approval Page</a>
-                <a href="patients" class="bg-info header-link">Patients Page</a>
                 <a href="/additionalPatientInfo" class="bg-info header-link">Patient Info</a>
             </div>
         @endif

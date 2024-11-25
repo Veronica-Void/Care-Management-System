@@ -61,7 +61,7 @@
     <div class="collapse mt-3" id="adminHeader">
         @if(Session::get('role') == 'admin')
             <div class="d-flex flex-wrap justify-content-center">
-                <a href="/make/appointment" class="bg-info header-link">Make Appointments</a>
+                <a href="/make/appointment" class="bg-info header-link">Appointments</a>
                 <a href="employees" class="bg-info header-link">View Employees</a>
                 <a href="payment" class="bg-info header-link">Manage Payments</a>
                 <a href="viewRoster" class="bg-info header-link">View Roster</a>
