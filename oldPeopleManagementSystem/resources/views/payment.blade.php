@@ -34,11 +34,11 @@
             <tbody>
                 <tr>
                     <td>
-                        patient ID goes here
+                        patient ID goes here  
                     </td>
 
                     <td>
-                        <input type="text" name="total_due" placeholder="Enter total payment due">
+                        <p>&nbsp</p>total amount from payment page 
                     </td>
                         
                     <td>
