@@ -61,13 +61,9 @@ Route::get('/make/appointment', [AppointmentController::class, 'appointment'])->
 Route::post('/make/appointment', [AppointmentController::class, 'getPatient'])->name('find_patient');
 Route::post('/make/appointment/create', [AppointmentController::class, 'makeAppointment'])->name('makeAppointment');
 
-
 //Caregiver Routes
 Route::get('/caregiver', [PatientInfoController::class, 'caregiver'])->name('caregiver');
-Route::post('/caregiver', [PatientInfoController::class, 'checkData'])->name('check');
-Route::post('/caregiver/find_patient', [PatientInfoController::class, 'getPatient'])->name('getPatient');
-
-
-
+Route::post('/caregiver/make', [PatientInfoController::class, 'editMeds'])->name('check');
+Route::post('/caregiver/search', [PatientInfoController::class, 'searchPatient'])->name('getPatient');
 
 ?>

@@ -112,6 +112,36 @@
                     </div>
                 </form>
             </div>
+        </form>
+        <div class="container mt" style="margin-bottom: 3%;">
+            <form action="{{ route('makeAppointment') }}" method="post">
+                @if(Session::has('success'))
+                <div class="alert alert-success">{{Session::get('success')}}</div>
+                @endif
+                @if(Session::has('fail'))
+                <div class="alert alert-danger">{{Session::get('fail')}}</div>
+                @endif
+                @csrf
+                <div class="form-group">
+                    <p>Current Patient ID:</p><input id="patient_id" name="patient_id" value="{{ $patient_id }}" readonly>
+                    <p>Current Patient Name:</p><input id="patient_name" name="patient_name" value="{{ $patient }}" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="dob">Date:</label>
+                    <input type="date" class="form-control" name="dob" id="dob" value="{{old('dob')}}">
+                    <span class="text-danger">@error('dob') {{$message}} @enderror</span>
+                </div>
+                <div class="form-group">
+                    <label for="doctor">Doctor:</label>
+                    <select name="doctor" id="doctor" class="form-control">
+                        @foreach ($doctors as $doctor)
+                            <option>{{ $doctor }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <button type="change_role" class="btn btn-primary success-bg-subtle" style="margin-left: 10px; margin-bottom: 10px; margin-top: 3%;">Ok</button>
+            </form>
+            <a href="/make/appointment"><button type="cancel" class="btn btn-primary" style="margin-left: 10px; margin-bottom: 10px;">Cancel</button></a>
         </div>
     </div>
 
