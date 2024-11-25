@@ -15,10 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('patient_name');
             $table->integer('patient_id');
-            $table->string('docs_name');
+            $table->integer('docs_id');
             $table->string('docs_appt');
-            $table->string('caregiver_first');
-            $table->string('caregiver_last');
+            $table->integer('caregiver_id');
             $table->integer('morning_meds');
             $table->integer('afternoon_meds');
             $table->integer('night_meds');

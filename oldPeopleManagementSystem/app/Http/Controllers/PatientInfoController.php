@@ -16,10 +16,9 @@ class PatientInfoController extends Controller
         // $newInfo = new patientInfo();
         // $newInfo->patient_name = "pat1";
         // $newInfo->patient_id = 5;
-        // $newInfo->docs_name = "Doc2";
+        // $newInfo->docs_id = 2;
         // $newInfo->docs_appt = "0001-01-01";
-        // $newInfo->caregiver_first = "FirstCare1";
-        // $newInfo->caregiver_last = "LastCare1";
+        // $newInfo->caregiver_id = 4;
         // $newInfo->morning_meds = 0;
         // $newInfo->afternoon_meds = 0;
         // $newInfo->night_meds = 0;
@@ -29,9 +28,7 @@ class PatientInfoController extends Controller
         // $newInfo->save();
 
         $id = Session::get('loginId');
-        $care_first = DB::table('users')->where('id', $id)->get()->value("f_name");
-        $care_last = DB::table('users')->where('id', $id)->get()->value("l_name");
-        $patients = DB::table('patient_infos')->where('caregiver_first', $care_first)->where('caregiver_last', $care_last)->get()->pluck("patient_name");
+        $patients = DB::table('patient_infos')->where('caregiver_id', $id)->get()->pluck("patient_name");
 
         if (count($patients) == 0) {
             $patients = "N/A";
@@ -50,9 +47,7 @@ class PatientInfoController extends Controller
         ]);
 
         $id = Session::get('loginId');
-        $care_first = DB::table('users')->where('id', $id)->get()->value("f_name");
-        $care_last = DB::table('users')->where('id', $id)->get()->value("l_name");
-        $patients = DB::table('patient_infos')->where('caregiver_first', $care_first)->where('caregiver_last', $care_last)->get()->pluck("patient_name");
+        $patients = DB::table('patient_infos')->where('caregiver_id', $id)->get()->pluck("patient_name");
 
         if (count($patients) == 0) {
             $patients = "N/A";
@@ -68,10 +63,9 @@ class PatientInfoController extends Controller
         $request->validate([
             'roles' => 'required',
         ]);
+        
         $id = Session::get('loginId');
-        $care_first = DB::table('users')->where('id', $id)->get()->value("f_name");
-        $care_last = DB::table('users')->where('id', $id)->get()->value("l_name");
-        $patients = DB::table('patient_infos')->where('caregiver_first', $care_first)->where('caregiver_last', $care_last)->get()->pluck("patient_name");
+        $patients = DB::table('patient_infos')->where('caregiver_id', $id)->get()->pluck("patient_name");
 
         if (count($patients) == 0) {
             $patients = "N/A";
