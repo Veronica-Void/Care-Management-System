@@ -65,7 +65,7 @@
                 </div>
                 <button type="change_role" class="btn btn-primary success-bg-subtle" style="margin-left: 10px; margin-bottom: 10px; margin-top: 3%;">Ok</button>
             </form>
-            <a href="role"><button type="cancel" class="btn btn-primary" style="margin-left: 10px; margin-bottom: 10px;">Cancel</button></a>
+            <a href="/make/appointment"><button type="cancel" class="btn btn-primary" style="margin-left: 10px; margin-bottom: 10px;">Cancel</button></a>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
