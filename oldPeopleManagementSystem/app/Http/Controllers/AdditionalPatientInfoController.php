@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\AdditionalPatientInfo;
+use App\Models\LoginPage;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 
@@ -27,7 +28,7 @@ class AdditionalPatientInfoController extends Controller
      */
     public function index()
     {
-
+        //
     }
 
     /**
@@ -48,6 +49,7 @@ class AdditionalPatientInfoController extends Controller
                 'patient_id' => 'required|integer|max:5',
                 'group' => 'required|string',
                 'admission_date' => 'required|date',
+                ''
             ]);
 
         }
@@ -67,7 +69,7 @@ class AdditionalPatientInfoController extends Controller
      */
     public function show (AdditionalPatientInfo $additionalPatientInfo)
     {
-
+        
     }
 
     /**

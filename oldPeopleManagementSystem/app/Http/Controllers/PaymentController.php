@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\payment;
+use App\Models\additionalPatientInfo;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
+
 
 class PaymentController extends Controller
 {
@@ -14,7 +16,7 @@ class PaymentController extends Controller
      */
     public function viewPaymentPage()
     {
-        return view('payment');
+        return view("payment");
     }
 
     /**
@@ -33,14 +35,15 @@ class PaymentController extends Controller
         //validate incoming data
         if($request->roles === 'admin') {
             $request->validate([
-                'patient_id' => 'required',
-                'total_due' => 'required',
-                'new_payment' => 'required',
+                // 'patient_id' => 'required',
+                // 'total_due' => 'required',
+                'new_payment' => 'required|numeric|min:0',
             ]);
         }
 
         $data = new PaymentController();
-        $data->total_due = $request->input('total_due');
+        // $patient_id->request
+        // $data->total_due = $request->input('total_due');
         $data->new_payment = $request->input('new_payment');
 
         return redirect()->route('admin')->with('success', 'Payment has been made successfully');
