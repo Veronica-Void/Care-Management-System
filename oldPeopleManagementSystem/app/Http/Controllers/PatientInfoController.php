@@ -14,11 +14,13 @@ class PatientInfoController extends Controller
     {
 
         // $newInfo = new patientInfo();
-        // $newInfo->patient_name = "pat1";
-        // $newInfo->patient_id = 5;
-        // $newInfo->docs_id = 2;
+
+        // $newInfo->patient_name = "cassie";
+        // $newInfo->patient_id = 4;
+        // $newInfo->docs_name = "chere";
         // $newInfo->docs_appt = "0001-01-01";
-        // $newInfo->caregiver_id = 4;
+        // $newInfo->caregiver_first = "Jeff";
+        // $newInfo->caregiver_last = "Killer";
         // $newInfo->morning_meds = 0;
         // $newInfo->afternoon_meds = 0;
         // $newInfo->night_meds = 0;

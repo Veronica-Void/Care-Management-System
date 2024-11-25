@@ -8,34 +8,57 @@
 </head>
 <style>
         .header-link {
-            margin: 5px;
+            margin: 0.5rem;
             padding: 0.5rem 1rem;
-            border-radius: 5px;
-            border: solid 1px black;
             text-decoration: none;
+            color: black;
+            border-radius: 5px;
+            border: 1px solid #0d6efd;
             text-align: center;
         }
         .header-link:hover {
-            background-color: #0056b3;
-            color: white !important;
+            background-color: #0d6efd;
+            color: white;
         }
     </style>
+</head>
 <body>
-<header style="display: block; margin-top: 20px;">
-@if(Session::get('role') == 'admin')
-            <a href="/admin" class="bg-primary-subtle text-black" style="border-radius: 10px; border: solid; border-color: black; text-align: center; width: 10%; padding: 0.1% 0.5% 0.1% 0.5%; margin-top: 1%; margin-left: 1%; text-decoration: none;">Home</a>
-            <a href="/make/appointment" class="bg-primary-subtle text-black" style="border-radius: 10px; border: solid; border-color: black; text-align: center; width: 10%; padding: 0.1%; margin-top: 1%; margin-left: 1%; text-decoration: none;">Schedule appointments for patients</a>
-        <a href="/employees" class="bg-primary-subtle text-black" style="border-radius: 10px; border: solid; border-color: black; text-align: center; width: 10%; padding: 0.1%; margin-top: 1%; text-decoration: none;">View Employees</a>
-        <a href="/payment" class="bg-primary-subtle text-black" style="border-radius: 10px; border: solid; border-color: black; text-align: center; width: 10%; padding: 0.1%; margin-top: 1%; text-decoration: none;">Manage Payments</a>
-        <a href="/newRoster" class="bg-primary-subtle text-black" style="border-radius: 10px; border: solid; border-color: black; text-align: center; width: 10%; padding: 0.1%; margin-top: 1%; text-decoration: none;">Create a Roster</a>
-        <a href="/admin/role" class="bg-primary-subtle text-black" style="border-radius: 10px; border: solid; border-color: black; text-align: center; width: 10%; padding: 0.1%; margin-top: 1%; text-decoration: none;">Role page</a>
-        <a href="/approval" class="bg-primary-subtle text-black" style="border-radius: 10px; border: solid; border-color: black; text-align: center; width: 10%; padding: 0.1%; margin-top: 1%; text-decoration: none;">Approval page</a>
-        <a href="/patients" class="bg-primary-subtle text-black" style="border-radius: 10px; border: solid; border-color: black; text-align: center; width: 10%; padding: 0.1%; margin-top: 1%; text-decoration: none;">Patients page</a>
-        <a href="/additionalPatientInfo" class="bg-primary-subtle text-black" style="border-radius: 10px; border: solid; border-color: black; text-align: center; width: 10%; padding: 0.1%; margin-top: 1%; text-decoration: none;">Patient Info</a>
+<header class="container text-center my-4">
+        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#adminHeader" aria-expanded="false" aria-controls="adminHeader">
+            Toggle Menu
+        </button>
+        <div class="collapse mt-3" id="adminHeader">
+            @if(Session::get('role') == 'admin')
+            <div class="d-flex flex-wrap justify-content-center">
+                    <a href="/admin" class="bg-info header-link">Home</a>
+                    <a href="/employees" class="bg-info header-link">View Employees</a>
+                    <a href="/payment" class="bg-info header-link">Manage Payments</a>
+                    <a href="/viewRoster" class="bg-info header-link">View Roster</a>
+                    <a href="/newRoster" class="bg-info header-link">Create Roster</a>
+                    <a href="/admin/role" class="bg-info header-link">Role Page</a>
+                    <a href="/admin/approval" class="bg-info header-link">Approval Page</a>
+                    <a href="/patients" class="bg-info header-link">Patients Page</a>
+                    <a href="/additionalPatientInfo" class="bg-info header-link">Patient Info</a>
+                </div>
+            @endif
+            @if(Session::get('role') == 'supervisor')
+                <div class="d-flex flex-wrap justify-content-center">
+                <a href="/dashboard" class="bg-info header-link">Home</a>
+                    <a href="/make/appointment" class="bg-info header-link">Schedule Appointments</a>
+                    <a href="/employees" class="bg-info header-link">View Employees</a>
+                    <a href="/newRoster" class="bg-info header-link">Create Roster</a>
+                    <a href="/admin/role" class="bg-info header-link">Role Page</a>
+                    <a href="/admin/approval" class="bg-info header-link">Approval Page</a>
+                    <a href="/patients" class="bg-info header-link">Patients Page</a>
+                    <a href="/additionalPatientInfo" class="bg-info header-link">Patient Info</a>
+                </div>
+                @endif
+                @if(Session::get('role') == 'patient')
+        <a href="/patientHome" class="bg-info header-link">Home</a>
         @endif
-        @if(Session::get('role') == 'patient')
-        <a href="/patientHome" class="bg-primary-subtle text-black" style="border-radius: 10px; border: solid; border-color: black; text-align: center; width: 10%; padding: 0.1% 0.5% 0.1% 0.5%; margin-top: 1%; margin-left: 1%; text-decoration: none;">Home</a>
-        @endif
+        </div>
+    </header>
+
         
     </header>
     <div class="container mt-5">

@@ -145,7 +145,8 @@ class LoginPageController extends Controller
     // Only allow 'admin' to access the approval page and approve new users
     public function approval()
     {
-        if (Session::get('role') !== 'admin') {
+        if (!in_array(Session::get('role'), ['admin', 'supervisor'])) {
+
             return back()->with('fail', 'You must be an admin');
         }
         // Fetch users awaiting approval
@@ -158,9 +159,10 @@ class LoginPageController extends Controller
     // Method to approve a user
     public function approveUser($id)
     {
-        if (Session::get('role') !== 'admin') {
-            return back()->with('fail', 'Unauthorized access');
+        if (!in_array(Session::get('role'), ['admin', 'supervisor'])) {
+            return back()->with('fail', 'Unauthorized access. Only admins or supervisors can approve users.');
         }
+        
 
         $user = LoginPage::find($id);
 
@@ -176,9 +178,10 @@ class LoginPageController extends Controller
     // Method to deny a user
     public function denyUser($id)
     {
-        if (Session::get('role') !== 'admin') {
-            return back()->with('fail', 'Unauthorized access');
+        if (!in_array(Session::get('role'), ['admin', 'supervisor'])) {
+            return back()->with('fail', 'Unauthorized access. Only admins or supervisors can approve users.');
         }
+        
 
         $user = LoginPage::find($id);
 
