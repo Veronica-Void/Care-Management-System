@@ -36,7 +36,7 @@ class PatientInfoController extends Controller
         if (count($patients) == 0) {
             $patients = "N/A";
         }
-
+      
         $message = "This is now careGiver";
 
         return view("careGiverHome", compact("patients", "message"));
@@ -80,5 +80,13 @@ class PatientInfoController extends Controller
         $message = "This is now searchPatient";
 
         return view("careGiverHome", compact("patients", "message"));
+
+    }
+    public function patientHome(){
+        $details = PatientInfo::all();
+
+        // Return the view with the roster data
+        return view('patientHome', compact('details'));
+
     }
 }

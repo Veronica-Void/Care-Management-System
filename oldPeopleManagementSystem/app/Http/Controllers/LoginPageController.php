@@ -258,9 +258,6 @@ class LoginPageController extends Controller
         return redirect()->back()->with('fail', 'Salary update failed');
     }
 }
-    public function patientHome(){
-        return view('patientHome');
-    }
     public function createRoster(Request $request)
     {
         // Validate the request data
