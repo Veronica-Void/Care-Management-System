@@ -8,6 +8,7 @@ use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\AdditionalPatientInfoController;
 use App\Http\Controllers\PatientInfoController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\DoctorHomeController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -72,5 +73,9 @@ Route::get('deny/{id}', [LoginPageController::class, 'denyUser'])->name('denyUse
 Route::get('/caregiver', [PatientInfoController::class, 'caregiver'])->name('caregiver');
 Route::post('/caregiver/make', [PatientInfoController::class, 'editMeds'])->name('check');
 Route::post('/caregiver/search', [PatientInfoController::class, 'searchPatient'])->name('getPatient');
+
+//Doctor Routes
+Route::get('/doctor', [DoctorHomeController::class, 'home'])->name('homePage');
+Route::post('/doctor', [DoctorHomeController::class, 'search'])->name('search');
 
 ?>
