@@ -36,7 +36,7 @@ class PatientInfoController extends Controller
             $patients = "N/A";
         }
 
-        return view("careGiverHome", compact("patients"));
+        return view("caregiverHome", compact("patients"));
     }
 
     public function getPatient(Request $request)
@@ -51,7 +51,7 @@ class PatientInfoController extends Controller
             $patients = "N/A";
         }
 
-        return view("careGiverHome", compact("patients"));
+        return view("caregiverHome", compact("patients"));
     }
 
     // Edits the database and inputs ONLY the checked data
@@ -83,6 +83,12 @@ class PatientInfoController extends Controller
             $patients = "N/A";
         }
 
-        return view ("careGiverHome", compact("patients"));
+        return view ("caregiverHome", compact("patients"));
+    }
+    public function patientHome(){
+        $details = PatientInfo::all();
+
+        // Return the view with the roster data
+        return view('patientHome', compact('details'));
     }
 }
