@@ -58,7 +58,6 @@
         </div>
     </header>
     <h2>Doctor's Homepage</h2>
-    <p>{{ $message }}</p>
     <form action="{{ route('getPatient') }}" method="post">
         @csrf
         <div class="container mt" style="margin-bottom: 3%;">
@@ -85,7 +84,7 @@
         <p style="color: red;">{{ session('fail') }}</p>
     @endif
 
-    <form action="{{ route('check') }}" method="post">
+    <form action="{{ route('search') }}" method="post">
         @csrf
         <div class="card shadow-sm mb-4">
             <div class="container-sm card-header bg-primary text-white">
@@ -94,34 +93,69 @@
             <div class="container-sm card-header bg-secondary text-white" style="display: table; padding: 10px;">
                 <div style="vertical-align: top; display: table-cell; text-align: center;">
                     <!-- <p style="background-color: green; border-type: solid; border-radius: 10px;">Complete</p> -->
-                    <input type="checkbox" id="morning_med" value=1>
-                    <label for="morning_med">Morning Medicine</label>
+                    <label for="morning_med">Morning Medicine</label><p></p>
+                    @if ($data[0] == 0)
+                        <p class="btn btn-danger">Incomplete</p>
+                    @elseif ($data[0] == 1)
+                        <p class="btn btn-success">Complete</label>
+                    @else
+                        <p class="btn btn-dark">N/A</p>
+                    @endif
+                    
                 </div>
                 <div style="vertical-align: top; display: table-cell; text-align: center;">
-                    <input type="checkbox" id="afternoon_med" value=1>
-                    <label for="afternoon_med">Afternoon Medicine</label>
+                    <label for="afternoon_med">Afternoon Medicine</label><p></p>
+                    @if ($data[1] == 0)
+                        <p class="btn btn-danger">Incomplete</p>
+                    @elseif ($data[1] == 1)
+                        <p class="btn btn-success">Complete</label>
+                    @else
+                        <p class="btn btn-dark">N/A</p>
+                    @endif
                 </div>
                 <div style="vertical-align: top; display: table-cell; text-align: center;">
-                    <input type="checkbox" id="night_med" value=1>
-                    <label for="night_med">Night Medicine</label>
+                    <label for="night_med">Night Medicine</label><p></p>
+                    @if ($data[2] == 0)
+                        <p class="btn btn-danger">Incomplete</p>
+                    @elseif ($data[2] == 1)
+                        <p class="btn btn-success">Complete</label>
+                    @else
+                        <p class="btn btn-dark">N/A</p>
+                    @endif
                 </div>
                 <div style="vertical-align: top; display: table-cell; text-align: center;">
-                    <input type="checkbox" id="breakfast" value=1>
-                    <label for="breakfast">Breakfast</label>
+                    <label for="breakfast">Breakfast</label><p></p>
+                    @if ($data[3] == 0)
+                        <p class="btn btn-danger">Incomplete</p>
+                    @elseif ($data[3] == 1)
+                        <p class="btn btn-success">Complete</label>
+                    @else
+                        <p class="btn btn-dark">N/A</p>
+                    @endif
                 </div>
                 <div style="vertical-align: top; display: table-cell; text-align: center;">
-                    <input type="checkbox" id="lunch" value=1>
-                    <label for="lunch">Lunch</label>
+                    <label for="lunch">Lunch</label><p></p>
+                    @if ($data[4] == 0)
+                        <p class="btn btn-danger">Incomplete</p>
+                    @elseif ($data[4] == 1)
+                        <p class="btn btn-success">Complete</label>
+                    @else
+                        <p class="btn btn-dark">N/A</p>
+                    @endif
                 </div>
                 <div style="vertical-align: top; display: table-cell; text-align: center;">
-                    <input type="checkbox" id="dinner" value=1>
-                    <label for="dinner">Dinner</label>
+                    <label for="dinner">Dinner</label><p></p>
+                    @if ($data[5] == 0)
+                        <p class="btn btn-danger">Incomplete</p>
+                    @elseif ($data[5] == 1)
+                        <p class="btn btn-success">Complete</label>
+                    @else
+                        <p class="btn btn-dark">N/A</p>
+                    @endif
                 </div>
             </div>
         </div>
-        <button type="submit" class="btn approve btn-primary success-bg-subtle" style="margin-left: 10px; margin-bottom: 10px; margin-top: 3%;">Confirm</button>
     </form>
-    <a href="" class="btn approve btn-primary success-bg-subtle" style="margin-left: 10px; margin-bottom: 10px; margin-top: 3%;">Clear</a>
     <a href="/logout">Logout</a>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
