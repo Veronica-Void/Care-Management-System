@@ -10,4 +10,5 @@ class LoginPage extends Model
     use HasFactory;
         // Specify the table name as 'users'
         protected $table = 'users';
+
 }
