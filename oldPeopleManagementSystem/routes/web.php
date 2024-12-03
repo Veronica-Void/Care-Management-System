@@ -53,9 +53,10 @@ Route::post('/employees',[LoginPageController::class, 'searchForTerm'])->name('s
 Route::get('/additionalPatientInfo', [AdditionalPatientInfoController::class, 'patientInfo'])->name('patientInfo');
 Route::post('/additionalPatientInfo', [AdditionalPatientInfoController::class, 'patientInfo'])->name('patientInfo');
 Route::post('/additional-patient-info', [AdditionalPatientInfoController::class, 'store'])->name('additional-patient-info.store');
-//Payment routes - Can only be accessed by admin
 
 
+Route::get('/familyHome', [LoginPageController::class, 'familyHome'])->name('familyHome');
+Route::post('/familyHome', [LoginPageController::class, 'familyHome'])->name('familyHome');
 
 
 // Also for Supervisor
@@ -75,7 +76,7 @@ Route::post('/caregiver/make', [PatientInfoController::class, 'editMeds'])->name
 Route::post('/caregiver/search', [PatientInfoController::class, 'searchPatient'])->name('getPatient');
 
 //Doctor Routes
-Route::get('/doctor', [DoctorHomeController::class, 'home'])->name('homePage');
+Route::get('/doctor', [DoctorHomeController::class, 'home'])->name('doctor');
 Route::post('/doctor', [DoctorHomeController::class, 'search'])->name('search');
 
 ?>

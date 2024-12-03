@@ -106,6 +106,10 @@ class LoginPageController extends Controller
                 return redirect()->route('caregiver');
             }elseif ($user->role == 'patient'){
                 return redirect()->route('patientHome');
+            }elseif ($user->role == 'doctor'){
+                return redirect()->route('doctor');
+            }elseif ($user->role == 'family_member'){
+                return redirect()->route('familyHome');
             }
             return redirect()->route('dashboard');
         }
@@ -306,4 +310,44 @@ class LoginPageController extends Controller
         // Return the view with the roster data
         return view('viewRoster', compact('rosters'));
     }
+
+ public function familyHome(Request $request)
+{
+    $details = null;
+
+    // Validate family_code and patient_id
+    $request->validate([
+        'family_code' => 'nullable|string',
+        'patient_id' => 'nullable|integer',
+    ]);
+    
+
+    $familyCode = $request->input('family_code');
+    $patientId = $request->input('patient_id');
+
+    // Fetch family members and related patient info
+    $details = DB::table('users')
+        ->join('patient_infos', 'users.id', '=', 'patient_infos.patient_id')
+        ->where('users.family_code', $familyCode)
+        ->where('patient_infos.patient_id', $patientId)
+        ->select(
+            'patient_infos.patient_name',
+            'patient_infos.patient_id',
+            'patient_infos.docs_id',
+            'patient_infos.docs_appt',
+            'patient_infos.caregiver_id',
+            'patient_infos.morning_meds',
+            'patient_infos.afternoon_meds',
+            'patient_infos.night_meds',
+            'patient_infos.breakfast',
+            'patient_infos.lunch',
+            'patient_infos.dinner'
+        )
+        ->get();
+
+    // Return view with details
+    return view('familyHome', compact('details'));
 }
+
+    
+    }

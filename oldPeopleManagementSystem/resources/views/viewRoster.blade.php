@@ -24,43 +24,55 @@
 </head>
 <body>
 <header class="container text-center my-4">
-        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#adminHeader" aria-expanded="false" aria-controls="adminHeader">
-            Toggle Menu
-        </button>
-        <div class="collapse mt-3" id="adminHeader">
-            @if(Session::get('role') == 'admin')
-            <div class="d-flex flex-wrap justify-content-center">
-                    <a href="/admin" class="bg-info header-link">Home</a>
-                    <a href="/employees" class="bg-info header-link">View Employees</a>
-                    <a href="/payment" class="bg-info header-link">Manage Payments</a>
-                    <a href="/viewRoster" class="bg-info header-link">View Roster</a>
-                    <a href="/newRoster" class="bg-info header-link">Create Roster</a>
-                    <a href="/admin/role" class="bg-info header-link">Role Page</a>
-                    <a href="/admin/approval" class="bg-info header-link">Approval Page</a>
-                    <a href="/patients" class="bg-info header-link">Patients Page</a>
-                    <a href="/additionalPatientInfo" class="bg-info header-link">Patient Info</a>
-                </div>
-            @endif
-            @if(Session::get('role') == 'supervisor')
-                <div class="d-flex flex-wrap justify-content-center">
-                <a href="/dashboard" class="bg-info header-link">Home</a>
-                    <a href="/make/appointment" class="bg-info header-link">Schedule Appointments</a>
-                    <a href="/employees" class="bg-info header-link">View Employees</a>
-                    <a href="/newRoster" class="bg-info header-link">Create Roster</a>
-                    <a href="/admin/role" class="bg-info header-link">Role Page</a>
-                    <a href="/admin/approval" class="bg-info header-link">Approval Page</a>
-                    <a href="/patients" class="bg-info header-link">Patients Page</a>
-                    <a href="/additionalPatientInfo" class="bg-info header-link">Patient Info</a>
-                </div>
-                @endif
-                @if(Session::get('role') == 'patient')
-        <a href="/patientHome" class="bg-info header-link">Home</a>
-        @endif
+    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#adminMenu" aria-expanded="false" aria-controls="adminMenu">
+        Toggle Menu
+    </button>
+    <div class="collapse mt-3" id="adminMenu">
+        @if(Session::get('role') == 'family_member')
+        <div class="d-flex flex-wrap justify-content-center">
+            <a href="/familyHome" class="header-link">Home</a>
         </div>
-    </header>
+        @endif
 
-        
-    </header>
+
+        @if(Session::get('role') == 'doctor')
+            <div class="d-flex flex-wrap justify-content-center">
+                <a href="/doctor" class="bg-info header-link">Home</a>
+                <a href="/patients" class="bg-info header-link">Patients Page</a>
+            </div>
+        @endif
+        @if(Session::get('role') == 'admin')
+            <div class="d-flex flex-wrap justify-content-center">
+                <a href="/admin" class="bg-info header-link">Home</a>
+                <a href="/employees" class="bg-info header-link">View Employees</a>
+                <a href="/payment" class="bg-info header-link">Manage Payments</a>
+                <a href="/viewRoster" class="bg-info header-link">View Roster</a>
+                <a href="/newRoster" class="bg-info header-link">Create Roster</a>
+                <a href="/admin/role" class="bg-info header-link">Role Page</a>
+                <a href="/admin/approval" class="bg-info header-link">Approval Page</a>
+                <a href="/patients" class="bg-info header-link">Patients Page</a>
+                <a href="/additionalPatientInfo" class="bg-info header-link">Patient Info</a>
+            </div>
+        @endif
+        @if(Session::get('role') == 'supervisor')
+            <div class="d-flex flex-wrap justify-content-center">
+                <a href="/dashboard" class="bg-info header-link">Home</a>
+                <a href="/make/appointment" class="bg-info header-link">Schedule Appointments</a>
+                <a href="/employees" class="bg-info header-link">View Employees</a>
+                <a href="/newRoster" class="bg-info header-link">Create Roster</a>
+                <a href="/admin/role" class="bg-info header-link">Role Page</a>
+                <a href="/admin/approval" class="bg-info header-link">Approval Page</a>
+                <a href="/patients" class="bg-info header-link">Patients Page</a>
+                <a href="/additionalPatientInfo" class="bg-info header-link">Patient Info</a>
+            </div>
+        @endif
+        @if(Session::get('role') == 'patient')
+            <div class="d-flex flex-wrap justify-content-center">
+                <a href="/patientHome" class="bg-info header-link">Home</a>
+            </div>
+        @endif
+    </div>
+</header>
     <div class="container mt-5">
         <h1>Roster List</h1>
         @if(session('success'))
