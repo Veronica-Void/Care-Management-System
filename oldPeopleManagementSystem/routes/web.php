@@ -48,8 +48,10 @@ Route::post('/make/appointment/create', [AppointmentController::class, 'makeAppo
 Route::get('/employees',[LoginPageController::class, 'employees'])->name('employees');
 Route::post('/employees',[LoginPageController::class, 'searchForTerm'])->name('search');
 Route::get('/additionalPatientInfo', [AdditionalPatientInfoController::class, 'patientInfo'])->name('patientInfo');
-Route::post('/additionalPatientInfo', [AdditionalPatientInfoController::class, 'patientInfo'])->name('patientInfo');
-Route::post('/additional-patient-info', [AdditionalPatientInfoController::class, 'store'])->name('additional-patient-info.store');
+Route::post('/additionalPatientInfo/store', [AdditionalPatientInfoController::class, 'store'])->name('additional-patient-info.store');
+// Route::post('/additionalPatientInfo', [AdditionalPatientInfoController::class, 'patientInfo'])->name('patientInfo');
+Route::post('/additional-patient-info', [AdditionalPatientInfoController::class, 'store'])->name('additional-patient-info');
+
 //Payment routes - Can only be accessed by admin
 Route::get('/payment', [PaymentController::class, 'viewPaymentPage'])->name('viewPaymentPage');
 Route::post('payment', [PaymentController::class, 'store'])->name('payment.store');

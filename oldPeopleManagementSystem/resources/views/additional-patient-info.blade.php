@@ -24,7 +24,10 @@
 <body>
     
     <h1>Welcome to the additional patient info page!</h1>
-    <form action="{{ route('additional-patient-info.store') }}" method="POST">
+    <form action="{{ route('additional-patient-info') }}" method="POST">
+        @if(Session::has('success'))
+            <div class="alert alert-success">{{ Session::get('success') }}</div>
+        @endif
         @csrf
         <table>
             <thead>
@@ -36,20 +39,28 @@
             <tbody>
                 <tr>
                     <td>
-                        <input type="text" name="patient_id" placeholder="Create 5-digit patient ID">
+                        <input type="text" name="patient_id" placeholder="Patient ID">
                     </td>
 
                     <td>
-                        <input type="text" name="group" placeholder="Ex: A, B, C, D">
+                        <input type="text" name="group" placeholder="Ex: A, B, C, D" required>
                     </td>
 
                     <td>
-                        <input type="date" name="admission_date" placeholder="Select admission date">
+                        <input type="date" name="admission_date" placeholder="Select Date" required>
+                    </td>
+
+                    <td>
+                        <select name="patient_name" id="patient_name" class="form-select" required>
+                            @foreach ($patients as $user)
+                                <option value="{{ $user->f_name }}"> {{ $user->f_name }} </option>
+                            @endforeach
+                        </select>
                     </td>
                 </tr>
             </tbody>
         </table>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Add Patient Info</button>
     </form>
     
 

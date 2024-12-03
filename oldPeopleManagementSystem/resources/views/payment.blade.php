@@ -53,7 +53,7 @@
             <tbody>
                 <tr>
                     <td>
-                        patient ID goes here  
+                        patient ID from additional patient info goes here  
                     </td>
                     <td>
                         <p>&nbsp</p>total amount from payment page 
