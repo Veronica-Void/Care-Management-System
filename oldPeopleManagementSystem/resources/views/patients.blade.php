@@ -21,23 +21,19 @@
         }
     </style>
 </head>
-@if(Session::get('role') == 'admin')
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container">
-        <a class="navbar-brand" href="#">Admin Panel</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
 <header class="container text-center my-4">
-    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#adminHeader" aria-expanded="false" aria-controls="adminHeader">
+@if(Session::get('role') == 'doctor')
+<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#adminHeader" aria-expanded="false" aria-controls="adminHeader">
+        Toggle Menu
+    </button>
+    <div class="collapse mt-3" id="adminHeader">
+                <div class="d-flex flex-wrap justify-content-center">
+                    <a href="/doctor" class="bg-info header-link">Home</a>
+                    <a href="/viewRoster" class="bg-info header-link">View Roster</a>
+                </div>
+            @endif
+@if(Session::get('role') == 'admin')
+<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#adminHeader" aria-expanded="false" aria-controls="adminHeader">
         Toggle Menu
     </button>
     <div class="collapse mt-3" id="adminHeader">
