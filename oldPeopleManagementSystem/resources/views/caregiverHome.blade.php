@@ -9,8 +9,9 @@
 
 <body>
     <h2>Caregiver Homepage</h2>
+    <p>{{ $message }}</p>
     <form action="{{ route('getPatient') }}" method="post">
-        
+        @csrf
         <div class="container mt" style="margin-bottom: 3%;">
             <label for="patient">Patient:</label>
             <select name="patient" id="patient" class="form-control" style="max-width: 25%;">
@@ -28,6 +29,7 @@
         </div>
     </form>
     <form action="{{ route('check') }}" method="post">
+        @csrf
         <div class="card shadow-sm mb-4">
             <div class="container-sm card-header bg-primary text-white">
                 <h3>Checklist</h3>
@@ -60,7 +62,7 @@
                 </div>
             </div>
         </div>
-        <a href="" class="btn approve btn-primary success-bg-subtle" style="margin-left: 10px; margin-bottom: 10px; margin-top: 3%;">Confirm</a>
+        <button type="submit" class="btn approve btn-primary success-bg-subtle" style="margin-left: 10px; margin-bottom: 10px; margin-top: 3%;">Confirm</button>
     </form>
     <a href="" class="btn approve btn-primary success-bg-subtle" style="margin-left: 10px; margin-bottom: 10px; margin-top: 3%;">Clear</a>
     <a href="/logout">Logout</a>
