@@ -39,6 +39,7 @@
                     <a href="/newRoster" class="header-link">Create Roster</a>
                     <a href="/patients" class="header-link">Patients Page</a>
                     <a href="/additionalPatientInfo" class="header-link">Patient Info</a>
+                    <a href="/adminReport" class="bg-info header-link">Missed Activities Report</a>
                 </div>
             @endif
             @if(Session::get('role') == 'supervisor')
@@ -50,6 +51,8 @@
                     <a href="/admin/role" class="bg-info header-link">Role Page</a>
                     <a href="/patients" class="bg-info header-link">Patients Page</a>
                     <a href="/additionalPatientInfo" class="bg-info header-link">Patient Info</a>
+                    <a href="/adminReport" class="bg-info header-link">Missed Activities Report</a>
+                    <a href="/viewRoster" class="bg-info header-link">View Roster</a>
                 </div>
                 @endif
         </div>

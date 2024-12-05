@@ -37,6 +37,7 @@
                 <a href="/admin/approval" class="bg-info header-link">Approval Page</a>
                 <a href="/patients" class="bg-info header-link">Patients Page</a>
                 <a href="/additionalPatientInfo" class="bg-info header-link">Patient Info</a>
+                <a href="/adminReport" class="bg-info header-link">Missed Activities Report</a>
             </div>
         @endif
     </div>
@@ -67,9 +68,7 @@
         </table>
         <button type="submit" class="btn btn-primary">Update</button>
     </form>
-    <a href="/logout">Logout</a>
-
-    <!-- Add the required scripts -->
+    <a href="/logout" class='btn btn-danger'>Logout</a>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
