@@ -8,20 +8,18 @@
 </head>
 <style>
         .header-link {
-            margin: 0.5rem;
+            margin: 5px;
             padding: 0.5rem 1rem;
-            text-decoration: none;
-            color: black;
             border-radius: 5px;
-            border: 1px solid #0d6efd;
+            border: solid 1px black;
+            text-decoration: none;
             text-align: center;
         }
         .header-link:hover {
-            background-color: #0d6efd;
-            color: white;
+            background-color: #0056b3;
+            color: white !important;
         }
     </style>
-</head>
 <body>
 <header class="container text-center my-4">
     <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#adminMenu" aria-expanded="false" aria-controls="adminMenu">
@@ -69,12 +67,10 @@
             </div>
         @endif
         @if(Session::get('role') == 'patient')
-            <div class="d-flex flex-wrap justify-content-center">
-                <a href="/patientHome" class="bg-info header-link">Home</a>
-            </div>
+        <a href="/patientHome" class="bg-primary-subtle text-black" style="border-radius: 10px; border: solid; border-color: black; text-align: center; width: 10%; padding: 0.1% 0.5% 0.1% 0.5%; margin-top: 1%; margin-left: 1%; text-decoration: none;">Home</a>
         @endif
-    </div>
-</header>
+        
+    </header>
     <div class="container mt-5">
         <h1>Roster List</h1>
         @if(session('success'))

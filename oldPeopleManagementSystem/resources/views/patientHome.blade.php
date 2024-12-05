@@ -59,6 +59,12 @@
                 @endif
             </div>
         </header>
+
+        <div class="card p-4 mb-4">
+            
+            <p class="text-center text-muted">Use the menu above to navigate the Patient panel.</p>
+        </div>
+
         <div class="card p-4">
             <h2 class="text-center mb-4">Tasks Completed Today:</h2>
             <table class="table table-striped table-bordered">
@@ -68,8 +74,7 @@
                         <th>Patient Id</th>
                         <th>Doctor's Name</th>
                         <th>Doctor's Appointment</th>
-                        <th>Caregiver first</th>
-                        <th>Caregiver last</th>
+                        <th>Caregiver Name</th>
                         <th>Morning Meds</th>
                         <th>Afternoon Meds</th>
                         <th>Night Meds</th>
@@ -85,8 +90,7 @@
                             <td>{{ $detail->patient_id }}</td>
                             <td>{{ $detail->docs_name }}</td>
                             <td>{{ $detail->docs_appt }}</td>
-                            <td>{{ $detail->caregiver_first }}</td>
-                            <td>{{ $detail->caregiver_last }}</td>
+                            <td>{{ $detail->caregiver_name }}</td>
                             <td>{{ $detail->morning_meds }}</td>
                             <td>{{ $detail->afternoon_meds }}</td>
                             <td>{{ $detail->night_meds }}</td>
