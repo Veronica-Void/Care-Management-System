@@ -69,6 +69,7 @@ Route::post('/caregiver/search', [PatientInfoController::class, 'searchPatient']
 
 //Doctor Routes
 Route::get('/doctor', [DoctorHomeController::class, 'home'])->name('homePage');
-Route::post('/doctor', [DoctorHomeController::class, 'search'])->name('search');
+Route::post('/doctor/patient', [DoctorHomeController::class, 'searchPatient'])->name('searchPatient');
+Route::post('/doctor', [DoctorHomeController::class, 'newPerscription'])->name('newPerscription');
 
 ?>
