@@ -8,7 +8,18 @@
 </head>
     <header style="display: block; margin-top: 20px;">
         @if(Session::get('role') == 'admin')
-            <a href="/admin" class="bg-primary-subtle text-black" style="border-radius: 10px; border: solid; border-color: black; text-align: center; width: 10%; padding: 0.1% 0.5% 0.1% 0.5%; margin-top: 1%; margin-left: 1%; text-decoration: none;">Home</a>
+            <div class="d-flex flex-wrap justify-content-center">
+            <a href="/admin" class="bg-info header-link">Home</a>
+                <a href="/make/appointment" class="bg-info header-link">Make Appointments</a>
+                <a href="/employees" class="bg-info header-link">View Employees</a>
+                <a href="/viewRoster" class="bg-info header-link">View Roster</a>
+                <a href="/payment" class="bg-info header-link">Payments</a>
+                <a href="/admin/role" class="bg-info header-link">Role Page</a>
+                <a href="/admin/approval" class="bg-info header-link">Approval Page</a>
+                <a href="/patients" class="bg-info header-link">Patients Page</a>
+                <a href="/newRoster" class="bg-info header-link">Create Roster</a>
+                <a href="/adminReport" class="bg-info header-link">Missed Activities Report</a>
+            </div>
         @endif
         <a href="make_appointment" class="bg-primary-subtle text-black" style="border-radius: 10px; border: solid; border-color: black; text-align: center; width: 10%; padding: 0.1%; margin-top: 1%; text-decoration: none;">Schedule appointments for patients</a>
         <a href="employees" class="bg-primary-subtle text-black" style="border-radius: 10px; border: solid; border-color: black; text-align: center; width: 10%; padding: 0.1%; margin-top: 1%; text-decoration: none;">View Employees</a>
@@ -64,7 +75,7 @@
     </form>
     
 
-    <a href="/logout">Logout</a>
+    <a href="/logout" class='btn btn-danger'>Logout</a>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

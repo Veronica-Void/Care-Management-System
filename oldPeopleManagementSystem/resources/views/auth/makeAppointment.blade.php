@@ -39,6 +39,7 @@
                     <a href="/admin/approval" class="bg-info header-link">Approval Page</a>
                     <a href="/patients" class="bg-info header-link">Patients Page</a>
                     <a href="/additionalPatientInfo" class="bg-info header-link">Patient Info</a>
+                    <a href="/adminReport" class="bg-info header-link">Missed Activities Report</a>
                 </div>
             @endif
             @if(Session::get('role') == 'supervisor')
@@ -52,6 +53,7 @@
                     <a href="/admin/approval" class="bg-info header-link">Approval Page</a>
                     <a href="/patients" class="bg-info header-link">Patients Page</a>
                     <a href="/additionalPatientInfo" class="bg-info header-link">Patient Info</a>
+                    <a href="/adminReport" class="bg-info header-link">Missed Activities Report</a>
                 </div>
             @endif
         </div>
@@ -114,8 +116,7 @@
             </div>
         </div>
     </div>
-
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<a href="/logout" class='btn btn-danger'>Logout</a>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

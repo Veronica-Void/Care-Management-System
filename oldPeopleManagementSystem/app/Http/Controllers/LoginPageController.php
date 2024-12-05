@@ -303,4 +303,109 @@ class LoginPageController extends Controller
         // Return the view with the roster data
         return view('viewRoster', compact('rosters'));
     }
+
+    public function familyHome(Request $request)
+    {
+        // Initialize an empty details variable
+        $details = null;
+    
+        // Validate incoming request data
+        $request->validate([
+            'family_code' => 'nullable|string',
+            'patient_id' => 'nullable|integer',
+            'date' => 'nullable|date',
+        ]);
+    
+        // Retrieve input values
+        $familyCode = $request->input('family_code');
+        $patientId = $request->input('patient_id');
+        $date = $request->input('date');
+    
+        // Build the query dynamically based on the input
+        $query = DB::table('users')
+            ->join('patient_infos', 'users.id', '=', 'patient_infos.patient_id')
+            ->select(
+                'patient_infos.patient_name',
+                'patient_infos.patient_id',
+                'patient_infos.docs_id',
+                'patient_infos.docs_appt',
+                'patient_infos.caregiver_id',
+                'patient_infos.morning_meds',
+                'patient_infos.afternoon_meds',
+                'patient_infos.night_meds',
+                'patient_infos.breakfast',
+                'patient_infos.lunch',
+                'patient_infos.dinner'
+            );
+    
+        // Apply filters if provided
+        if ($familyCode) {
+            $query->where('users.family_code', $familyCode);
+        }
+    
+        if ($patientId) {
+            $query->where('patient_infos.patient_id', $patientId);
+        }
+    
+        if ($date) {
+            $query->whereDate('patient_infos.docs_appt', $date); // Assuming docs_appt is the appointment date field
+        }
+    
+        // Execute the query
+        $details = $query->get();
+    
+        // Return the familyHome view with the details
+        return view('familyHome', compact('details'));
+    }
+    
+    public function missedActivityReport()
+{
+    // Fetch all patients with missed activities
+    $missedActivities = DB::table('patient_infos')
+        ->join('users', 'users.id', '=', 'patient_infos.patient_id')
+        ->select(
+            'patient_infos.patient_name',
+            'patient_infos.patient_id',
+            'patient_infos.caregiver_id',
+            'users.family_code',
+            DB::raw("CASE WHEN patient_infos.morning_meds = 0 THEN 'Morning Medicine' END AS missed_morning"),
+            DB::raw("CASE WHEN patient_infos.afternoon_meds = 0 THEN 'Afternoon Medicine' END AS missed_afternoon"),
+            DB::raw("CASE WHEN patient_infos.night_meds = 0 THEN 'Night Medicine' END AS missed_night"),
+            DB::raw("CASE WHEN patient_infos.breakfast = 0 THEN 'Breakfast' END AS missed_breakfast"),
+            DB::raw("CASE WHEN patient_infos.lunch = 0 THEN 'Lunch' END AS missed_lunch"),
+            DB::raw("CASE WHEN patient_infos.dinner = 0 THEN 'Dinner' END AS missed_dinner")
+        )
+        ->where(function ($query) {
+            $query->where('patient_infos.morning_meds', 0)
+                ->orWhere('patient_infos.afternoon_meds', 0)
+                ->orWhere('patient_infos.night_meds', 0)
+                ->orWhere('patient_infos.breakfast', 0)
+                ->orWhere('patient_infos.lunch', 0)
+                ->orWhere('patient_infos.dinner', 0);
+        })
+        ->get();
+
+    $reportData = $missedActivities->map(function ($activity) {
+        $missed = [];
+        if ($activity->missed_morning) $missed[] = $activity->missed_morning;
+        if ($activity->missed_afternoon) $missed[] = $activity->missed_afternoon;
+        if ($activity->missed_night) $missed[] = $activity->missed_night;
+        if ($activity->missed_breakfast) $missed[] = $activity->missed_breakfast;
+        if ($activity->missed_lunch) $missed[] = $activity->missed_lunch;
+        if ($activity->missed_dinner) $missed[] = $activity->missed_dinner;
+
+        return [
+            'patient_name' => $activity->patient_name,
+            'patient_id' => $activity->patient_id,
+            'caregiver_id' => $activity->caregiver_id,
+            'family_code' => $activity->family_code,
+            'missed_activities' => implode(', ', $missed),
+        ];
+    });
+
+    // Pass the data to the view
+    return view('adminReport', ['reportData' => $reportData]);
 }
+
+    
+    }

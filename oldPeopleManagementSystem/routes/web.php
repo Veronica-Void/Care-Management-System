@@ -59,6 +59,7 @@ Route::post('payment', [PaymentController::class, 'store'])->name('payment.store
 
 
 // Also for Supervisor
+Route::get('/adminReport', [LoginPageController::class, 'missedActivityReport'])->name('missedActivityReport');
 Route::get('/make/appointment', [AppointmentController::class, 'appointment'])->name('appointments');
 Route::post('/make/appointment', [AppointmentController::class, 'getPatient'])->name('find_patient');
 Route::post('/make/appointment/create', [AppointmentController::class, 'makeAppointment'])->name('makeAppointment');
@@ -66,9 +67,19 @@ Route::post('/make/appointment/create', [AppointmentController::class, 'makeAppo
 
 //Caregiver Routes
 Route::get('/caregiver', [PatientInfoController::class, 'caregiver'])->name('caregiver');
-Route::post('/caregiver', [PatientInfoController::class, 'checkData'])->name('check');
+// Route::post('/caregiver', [PatientInfoController::class, 'checkData'])->name('check');
 Route::post('/caregiver/selectPatient', [PatientInfoController::class, 'selectPatient'])->name('selectPatient');
 
+Route::post('/editMeds', [PatientInfoController::class, 'editMeds'])->name('check');
+Route::post('/caregiver/search', [PatientInfoController::class, 'searchPatient'])->name('getPatient');
+
+//Doctor Routes
+Route::get('/doctor', [DoctorHomeController::class, 'home'])->name('doctor');
+Route::post('/doctor/patient', [DoctorHomeController::class, 'searchPatient'])->name('searchPatient');
+Route::post('/doctor', [DoctorHomeController::class, 'newPerscription'])->name('newPerscription');
+
+
+?>
 
 
 
