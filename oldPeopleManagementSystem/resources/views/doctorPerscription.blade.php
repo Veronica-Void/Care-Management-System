@@ -20,10 +20,8 @@
             background-color: #0d6efd;
             color: white;
         }
-    </style>
-</head>
+</style>
 <body>
-    <!-- Custom Header -->
     <header class="container text-center my-4">
         <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#adminHeader" aria-expanded="false" aria-controls="adminHeader">
             Toggle Menu
