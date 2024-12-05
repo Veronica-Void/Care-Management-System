@@ -30,17 +30,11 @@ class PatientInfoController extends Controller
 
     public function selectPatient(Request $request)
     {
-        alert("WHAT");
-        $id = Session::get('loginId');
-        $care_first = DB::table('users')->where('id', $id)->get()->pluck("f_name");
-        $care_last = DB::table('users')->where('id', $id)->get()->pluck("l_name");
-        $patients = DB::table('patient_infos')->where('caregiver_first', $care_first)->where('caregiver_last', $care_last)->get()->pluck('patient_name');
+        //keeping the selected patient's name in the session and displaying it
+        $selectedPatientName = $request->input('patient');
+        Session()->put('selected_patient', $selectedPatientName);
 
-        if (count($patients) == 0) {
-            $patients = "N/A";
-        }
-
-        return view("caregiverHome", compact("patients"));
+        return redirect()->route('caregiver')->with('success', 'Patient selected successfully');
     }
 
     // Edits the database and inputs ONLY the checked data
@@ -63,6 +57,20 @@ class PatientInfoController extends Controller
         $newData->dinner = $request->dinner;
         $newData->save();
 
+        $id = Session::get('loginId');
+        $care_first = DB::table('users')->where('id', $id)->get()->pluck("f_name");
+        $care_last = DB::table('users')->where('id', $id)->get()->pluck("l_name");
+        $patients = DB::table('patient_infos')->where('caregiver_first', $care_first)->where('caregiver_last', $care_last)->get()->pluck('patient_name');
+
+        if (count($patients) == 0) {
+            $patients = "N/A";
+        }
+
+        return view ("caregiverHome", compact("patients"));
+    }
+
+
+    public function patientHome(Request $request){
         $id = Session::get('loginId');
         $current_patient = patientInfo::where('patient_id', $id)->get();
         $details = patientInfo::all();

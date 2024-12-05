@@ -22,6 +22,7 @@
     </style>
 </head>
 <body>
+    <!-- Custom Header -->
     <header class="container text-center my-4">
         <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#adminHeader" aria-expanded="false" aria-controls="adminHeader">
             Toggle Menu
@@ -42,8 +43,9 @@
             @endif
             @if(Session::get('role') == 'supervisor')
                 <div class="d-flex flex-wrap justify-content-center">
-                    <a href="/dashboard" class="bg-info header-link">Home</a>
+                    <a href="/make/appointment" class="bg-info header-link">Schedule Appointments</a>
                     <a href="/employees" class="bg-info header-link">View Employees</a>
+                    <a href="/payment" class="bg-info header-link">Manage Payments</a>
                     <a href="/viewRoster" class="bg-info header-link">View Roster</a>
                     <a href="/newRoster" class="bg-info header-link">Create Roster</a>
                     <a href="/admin/role" class="bg-info header-link">Role Page</a>
@@ -106,11 +108,11 @@
                     </div>
                     <div class="d-flex justify-content-between">
                         <button type="submit" class="btn btn-success">Ok</button>
-                        <a href="/make/appointment"><button type="button" class="btn btn-danger">Cancel</button></a>
+                        <button type="button" class="btn btn-danger" onclick="location.reload()">Cancel</button>
                     </div>
                 </form>
             </div>
-        </form>
+        </div>
     </div>
 
     <!-- Bootstrap JS -->

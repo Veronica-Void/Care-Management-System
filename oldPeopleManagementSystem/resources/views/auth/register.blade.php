@@ -6,7 +6,7 @@
     <title>Register Page</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body class="bg-light">
+<body class="bg-dark">
     <div class="container my-5">
         <div class="row justify-content-center">
             <div class="col-lg-6">
