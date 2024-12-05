@@ -59,6 +59,12 @@
                 @endif
             </div>
         </header>
+
+        <div class="card p-4 mb-4">
+            
+            <p class="text-center text-muted">Use the menu above to navigate the Patient panel.</p>
+        </div>
+
         <div class="card p-4">
             <h2 class="text-center mb-4">Tasks Completed Today:</h2>
             <table class="table table-striped table-bordered">

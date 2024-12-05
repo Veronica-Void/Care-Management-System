@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\patientInfo;
 use Illuminate\Http\Request;
+use App\Models\patientInfo;
+use App\Models\LoginPage;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 
@@ -12,25 +15,11 @@ class PatientInfoController extends Controller
     // Display the home page
     public function caregiver()
     {
-        // $newInfo = new patientInfo();
-        // $newInfo->patient_name = "pat1";
-        // $newInfo->patient_id = 5;
-        // $newInfo->docs_name = "Doc2";
-        // $newInfo->docs_appt = "0001-01-01";
-        // $newInfo->caregiver_first = "FirstCare1";
-        // $newInfo->caregiver_last = "LastCare1";
-        // $newInfo->morning_meds = 0;
-        // $newInfo->afternoon_meds = 0;
-        // $newInfo->night_meds = 0;
-        // $newInfo->breakfast = 0;
-        // $newInfo->lunch = 0;
-        // $newInfo->dinner = 0;
-        // $newInfo->save();
-
+        //using session to check whether the person logged in is a caregiver
         $id = Session::get('loginId');
         $care_first = DB::table('users')->where('id', $id)->get()->pluck("f_name");
         $care_last = DB::table('users')->where('id', $id)->get()->pluck("l_name");
-        $patients = DB::table('patient_infos')->where('caregiver_first', $care_first)->where('caregiver_last', $care_last)->get()->pluck('patient_name');
+        $patients = DB::table('users')->where('role', 'patient')->get();
 
         if (count($patients) == 0) {
             $patients = "N/A";
@@ -39,19 +28,13 @@ class PatientInfoController extends Controller
         return view("caregiverHome", compact("patients"));
     }
 
-    public function getPatient(Request $request)
+    public function selectPatient(Request $request)
     {
-        alert("WHAT");
-        $id = Session::get('loginId');
-        $care_first = DB::table('users')->where('id', $id)->get()->pluck("f_name");
-        $care_last = DB::table('users')->where('id', $id)->get()->pluck("l_name");
-        $patients = DB::table('patient_infos')->where('caregiver_first', $care_first)->where('caregiver_last', $care_last)->get()->pluck('patient_name');
+        //keeping the selected patient's name in the session and displaying it
+        $selectedPatientName = $request->input('patient');
+        Session()->put('selected_patient', $selectedPatientName);
 
-        if (count($patients) == 0) {
-            $patients = "N/A";
-        }
-
-        return view("caregiverHome", compact("patients"));
+        return redirect()->route('caregiver')->with('success', 'Patient selected successfully');
     }
 
     // Edits the database and inputs ONLY the checked data
@@ -85,10 +68,16 @@ class PatientInfoController extends Controller
 
         return view ("caregiverHome", compact("patients"));
     }
-    public function patientHome(){
-        $details = PatientInfo::all();
 
+
+    public function patientHome(Request $request){
+        $id = Session::get('loginId');
+        $current_patient = patientInfo::where('patient_id', $id)->get();
+        $details = patientInfo::all();
         // Return the view with the roster data
-        return view('patientHome', compact('details'));
+        return view('patientHome', compact('details', 'current_patient'));
     }
 }
+
+
+?>
