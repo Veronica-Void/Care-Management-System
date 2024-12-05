@@ -68,7 +68,8 @@
                         <th>Patient Id</th>
                         <th>Doctor's Name</th>
                         <th>Doctor's Appointment</th>
-                        <th>Caregiver Name</th>
+                        <th>Caregiver first</th>
+                        <th>Caregiver last</th>
                         <th>Morning Meds</th>
                         <th>Afternoon Meds</th>
                         <th>Night Meds</th>
@@ -84,7 +85,8 @@
                             <td>{{ $detail->patient_id }}</td>
                             <td>{{ $detail->docs_name }}</td>
                             <td>{{ $detail->docs_appt }}</td>
-                            <td>{{ $detail->caregiver_name }}</td>
+                            <td>{{ $detail->caregiver_first }}</td>
+                            <td>{{ $detail->caregiver_last }}</td>
                             <td>{{ $detail->morning_meds }}</td>
                             <td>{{ $detail->afternoon_meds }}</td>
                             <td>{{ $detail->night_meds }}</td>

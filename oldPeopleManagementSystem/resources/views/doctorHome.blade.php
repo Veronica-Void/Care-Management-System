@@ -55,6 +55,12 @@
                     <a href="/additionalPatientInfo" class="bg-info header-link">Patient Info</a>
                 </div>
             @endif
+            @if(Session::get('role') == 'doctor')
+                <div class="d-flex flex-wrap justify-content-center">
+                    <a href="/viewRoster" class="bg-info header-link">View Roster</a>
+                    <a href="/patients" class="bg-info header-link">Patients Page</a>
+                </div>
+            @endif
         </div>
     </header>
     <h2>Doctor's Homepage</h2>

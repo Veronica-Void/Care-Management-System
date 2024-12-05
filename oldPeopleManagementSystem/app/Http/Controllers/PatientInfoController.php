@@ -13,20 +13,6 @@ class PatientInfoController extends Controller
     public function caregiver()
     {
 
-        // $newInfo = new patientInfo();
-        // $newInfo->patient_name = "pat1";
-        // $newInfo->patient_id = 5;
-        // $newInfo->docs_id = 2;
-        // $newInfo->docs_appt = "0001-01-01";
-        // $newInfo->caregiver_id = 4;
-        // $newInfo->morning_meds = 0;
-        // $newInfo->afternoon_meds = 0;
-        // $newInfo->night_meds = 0;
-        // $newInfo->breakfast = 0;
-        // $newInfo->lunch = 0;
-        // $newInfo->dinner = 0;
-        // $newInfo->save();
-
         $id = Session::get('loginId');
         $patients = DB::table('patient_infos')->where('caregiver_id', $id)->get()->pluck("patient_name");
 
