@@ -156,9 +156,11 @@
                     <p class="btn btn-dark">None</p>
                 </div>
             </div>
-        @endif
-    </div>
-    <a href="/logout">Logout</a>
+
+        </div>
+    </form>
+    <a href="/logout" class='btn btn-danger'>Logout</a>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
