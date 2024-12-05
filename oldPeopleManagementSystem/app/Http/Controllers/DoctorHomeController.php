@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\doctorHome;
 use App\Models\patientInfo;
+use App\Models\doctor_comments;
+use App\Models\additionalPatientInfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
@@ -13,53 +15,99 @@ class DoctorHomeController extends Controller
     
     public function home()
     {
-        // $newInfo = new patientInfo();
-        // $newInfo->patient_name = "pat1";
-        // $newInfo->patient_id = 5;
-        // $newInfo->docs_id = 2;
-        // $newInfo->docs_appt = "0001-01-01";
-        // $newInfo->caregiver_id = 4;
-        // $newInfo->morning_meds = 0;
-        // $newInfo->afternoon_meds = 0;
-        // $newInfo->night_meds = 0;
-        // $newInfo->breakfast = 0;
-        // $newInfo->lunch = 0;
-        // $newInfo->dinner = 0;
-        // $newInfo->save();
-
         $id = Session::get('loginId');
         $patients = DB::table('patient_infos')->where('docs_id', $id)->get()->pluck("patient_name");
+        $patient_id = DB::table('patient_infos')->where('docs_id', $id)->get()->pluck("patient_id");
 
         if (count($patients) == 0) {
             $patients = "N/A";
         }
 
-        $morn = "N/A";
-        $after = "N/A";
-        $night = "N/A";
-        $break = "N/A";
-        $lunch = "N/A";
-        $din = "N/A";
+        $comment = DB::table('doctor_comments')->where('docs_id', $id)->get()->pluck("comment");
+        $morn = DB::table('patient_infos')->where('docs_id', $id)->get()->pluck("morning_meds");
+        $after = DB::table('patient_infos')->where('docs_id', $id)->get()->pluck("afternoon_meds");
+        $night = DB::table('patient_infos')->where('docs_id', $id)->get()->pluck("night_meds");
 
-        $data = [$morn, $after, $night, $break, $lunch, $din];
+        $data = [$morn, $after, $night];
 
-        return view("doctorHome", compact("patients", "data"));
+        $patient_name = DB::table('patient_infos')->where('docs_id', $id)->get()->pluck("patient_name");
+        $date = DB::table('patient_infos')->where('docs_id', $id)->get()->pluck("docs_appt");
+
+        return view("doctorHome", compact("patients", "patient_id", "patient_name", "date", "data", "comment"));
     }
 
-    public function search()
+    public function searchPatient(Request $request)
     {
-        alert("This should cause an immediate error upon searching");
+        $id = Session::get('loginId');
+        $patients = DB::table('patient_infos')->where('docs_id', $id)->where('patient_id', $request->patient_id)->get()->value("patient_name");
+        $patient_id = $request->patient_id;
+
+        $comments = DB::table('doctor_comments')->where('docs_id', $id)->where('patient_id', $patient_id)->get()->pluck("comment");
+
+        $data = DB::table('patient_infos')->where('docs_id', $id)->where('patient_id', $patient_id)->get();
+
+        $patient_name = DB::table('patient_infos')->where('docs_id', $id)->where('patient_id', $request->patient_id)->get()->value("patient_name");
+        $date = DB::table('patient_infos')->where('docs_id', $id)->where('patient_id', $patient_id)->get()->value("docs_appt");
+
+        return view("doctorPerscription", compact("patients", "patient_id", "patient_name", "date", "comments", "data"));
+    }
+
+    public function newPerscription(Request $request)
+    {
         $id = Session::get('loginId');
         $patients = DB::table('patient_infos')->where('docs_id', $id)->get()->pluck("patient_name");
+        $patient_id = DB::table('patient_infos')->where('docs_id', $id)->get()->pluck("patient_id");
 
         if (count($patients) == 0) {
             $patients = "N/A";
         }
 
-        $tableData = DB::table('patient_infos')->where('docs_id', $id)->get();
+        $comment = DB::table('doctor_comments')->where('docs_id', $id)->get()->pluck("comment");
+        $morn = DB::table('patient_infos')->where('docs_id', $id)->get()->pluck("morning_meds");
+        $after = DB::table('patient_infos')->where('docs_id', $id)->get()->pluck("afternoon_meds");
+        $night = DB::table('patient_infos')->where('docs_id', $id)->get()->pluck("night_meds");
 
-        $data = [$tableData->morning_meds, $tableData->afternoon_meds, $tableData->night_meds, $tableData->breakfast, $tableData->lunch, $tableData->dinner];
+        $data = [$morn, $after, $night];
 
-        return view("doctorHome", compact("patients"));
+        $patient_name = DB::table('patient_infos')->where('docs_id', $id)->get()->pluck("patient_name");
+        $date = DB::table('patient_infos')->where('docs_id', $id)->get()->pluck("docs_appt");
+
+        $searchID = DB::table('patient_infos')->where('docs_id', $id)->where('patient_name', $request->patient_name)->get()->value("patient_id");
+        $patient_group = DB::table('additional_patient_infos')->where('patient_ID', $searchID)->get()->value("group");
+        $care_name = DB::table('rosters')->where('group', $patient_group)->get()->value("caregiver_name");
+        $caregiver_id = DB::table('users')->where('f_name', $care_name)->where('role', 'caregiver')->get()->value("id");
+
+        $newData = new patientInfo();
+        $newData->patient_name = $request->patient_name;
+        $newData->patient_id = $searchID;
+        $newData->docs_id = $id;
+        $newData->docs_appt = date("20y-m-d");
+        $newData->caregiver_id = $caregiver_id;
+
+        if (strtolower($request->morning) == "yes") {$newData->morning_meds = 1;}
+        elseif (strtolower($request->morning) == "no") {$newData->morning_meds = 0;}
+        else {$newData->morning_meds = 2;}
+
+        if (strtolower($request->afternoon) == "yes") {$newData->afternoon_meds = 1;}
+        elseif (strtolower($request->afternoon) == "no") {$newData->afternoon_meds = 0;}
+        else {$newData->afternoon_meds = 2;}
+
+        if (strtolower($request->night) == "yes") {$newData->night_meds = 1;}
+        elseif (strtolower($request->night) == "no") {$newData->night_meds = 0;}
+        else {$newData->night_meds = 2;}
+
+        $newData->breakfast = 0;
+        $newData->lunch = 0;
+        $newData->dinner = 0;
+        $newData->save();
+
+        $newData = new doctor_comments();
+        $newData->patient_id = $searchID;
+        $newData->docs_id = $id;
+        $newData->comment = $request->comment;
+        $newData->appt_id = DB::table('patient_infos')->latest('id')->get()->value("id");
+        $newData->save();
+
+        return view("doctorHome", compact("patients", "patient_id", "patient_name", "date", "data", "comment"));
     }
 }
