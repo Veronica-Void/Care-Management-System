@@ -50,7 +50,7 @@ Route::post('/make/appointment', [AppointmentController::class, 'getPatient'])->
 Route::post('/make/appointment/create', [AppointmentController::class, 'makeAppointment'])->name('makeAppointment');
 Route::get('/employees',[LoginPageController::class, 'employees'])->name('employees');
 Route::post('/employees',[LoginPageController::class, 'searchForTerm'])->name('search');
-Route::post('/additionalPatientInfo', [AdditionalPatientInfoController::class, 'patientInfo'])->name('patientInfo');
+Route::get('/additionalPatientInfo', [AdditionalPatientInfoController::class, 'patientInfo'])->name('patientInfo');
 Route::post('/additionalPatientInfo/store', [AdditionalPatientInfoController::class, 'store'])->name('additional-patient-info.store');
 Route::post('/additional-patient-info', [AdditionalPatientInfoController::class, 'store'])->name('additional-patient-info');
 

@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Doctor Home Page</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
 <style>
         .header-link {
             margin: 0.5rem;
@@ -90,77 +89,77 @@
                     <div style="vertical-align: top; display: table-cell; text-align: center;">
                         <label for="date">Date of appointment</label><p></p>
                         <p class="btn btn-light">{{ $date[$loop->iteration - 1] }}</p>
+                        </div>
+                        <div style="vertical-align: top; display: table-cell; text-align: center;">
+                            <label for="date">Comment</label><p></p>
+                            <p class="btn btn-light">{{ $comment[$loop->iteration - 1] }}</p>
+                        </div>
+                        <div style="vertical-align: top; display: table-cell; text-align: center;">
+                            <label for="morning_med">Morning Medicine</label><p></p>
+                            @if ($data[0][$loop->iteration - 1] == 0)
+                                <p class="btn btn-danger">Not Required</p>
+                            @elseif ($data[0][$loop->iteration - 1] == 1)
+                                <p class="btn btn-success">Required</label>
+                            @else
+                                <p class="btn btn-dark">N/A</p>
+                            @endif
+                        </div>
+                        <div style="vertical-align: top; display: table-cell; text-align: center;">
+                            <label for="afternoon_med">Afternoon Medicine</label><p></p>
+                            @if ($data[1][$loop->iteration - 1] == 0)
+                                <p class="btn btn-danger">Not Required</p>
+                            @elseif ($data[1][$loop->iteration - 1] == 1)
+                                <p class="btn btn-success">Required</label>
+                            @else
+                                <p class="btn btn-dark">N/A</p>
+                            @endif
+                        </div>
+                        <div style="vertical-align: top; display: table-cell; text-align: center;">
+                            <label for="night_med">Night Medicine</label><p></p>
+                            @if ($data[2][$loop->iteration - 1] == 0)
+                                <p class="btn btn-danger">Not Required</p>
+                            @elseif ($data[2][$loop->iteration - 1] == 1)
+                                <p class="btn btn-success">Required</label>
+                            @else
+                                <p class="btn btn-dark">N/A</p>
+                            @endif
+                        </div>
+                    </div>
+                </form>
+                @endif
+                @endforeach
+                @else
+                <div class="container-sm card-header bg-secondary text-white" style="display: table; padding: 10px;">
+                    <div style="vertical-align: top; display: table-cell; text-align: center;">
+                        <label for="name">Patient Name</label><p></p>
+                        <button type="submit" class="btn btn-light">None</button>
+                    </div>
+                    <div style="vertical-align: top; display: table-cell; text-align: center;">
+                        <label for="date">Date of appointment</label><p></p>
+                        <p class="btn btn-light">None</p>
                     </div>
                     <div style="vertical-align: top; display: table-cell; text-align: center;">
                         <label for="date">Comment</label><p></p>
-                        <p class="btn btn-light">{{ $comment[$loop->iteration - 1] }}</p>
+                        <p class="btn btn-light">None</p>
                     </div>
                     <div style="vertical-align: top; display: table-cell; text-align: center;">
                         <label for="morning_med">Morning Medicine</label><p></p>
-                        @if ($data[0][$loop->iteration - 1] == 0)
-                            <p class="btn btn-danger">Not Required</p>
-                        @elseif ($data[0][$loop->iteration - 1] == 1)
-                            <p class="btn btn-success">Required</label>
-                        @else
-                            <p class="btn btn-dark">N/A</p>
-                        @endif
+                        <p class="btn btn-dark">None</p>
                     </div>
                     <div style="vertical-align: top; display: table-cell; text-align: center;">
                         <label for="afternoon_med">Afternoon Medicine</label><p></p>
-                        @if ($data[1][$loop->iteration - 1] == 0)
-                            <p class="btn btn-danger">Not Required</p>
-                        @elseif ($data[1][$loop->iteration - 1] == 1)
-                            <p class="btn btn-success">Required</label>
-                        @else
-                            <p class="btn btn-dark">N/A</p>
-                        @endif
+                        <p class="btn btn-dark">None</p>
                     </div>
                     <div style="vertical-align: top; display: table-cell; text-align: center;">
                         <label for="night_med">Night Medicine</label><p></p>
-                        @if ($data[2][$loop->iteration - 1] == 0)
-                            <p class="btn btn-danger">Not Required</p>
-                        @elseif ($data[2][$loop->iteration - 1] == 1)
-                            <p class="btn btn-success">Required</label>
-                        @else
-                            <p class="btn btn-dark">N/A</p>
-                        @endif
+                        <p class="btn btn-dark">None</p>
                     </div>
-                </form>
-            </div>
+                </div>
             @endif
-            @endforeach
-            @else
-            <div class="container-sm card-header bg-secondary text-white" style="display: table; padding: 10px;">
-                <div style="vertical-align: top; display: table-cell; text-align: center;">
-                    <label for="name">Patient Name</label><p></p>
-                    <button type="submit" class="btn btn-light">None</button>
-                </div>
-                <div style="vertical-align: top; display: table-cell; text-align: center;">
-                    <label for="date">Date of appointment</label><p></p>
-                    <p class="btn btn-light">None</p>
-                </div>
-                <div style="vertical-align: top; display: table-cell; text-align: center;">
-                    <label for="date">Comment</label><p></p>
-                    <p class="btn btn-light">None</p>
-                </div>
-                <div style="vertical-align: top; display: table-cell; text-align: center;">
-                    <label for="morning_med">Morning Medicine</label><p></p>
-                    <p class="btn btn-dark">None</p>
-                </div>
-                <div style="vertical-align: top; display: table-cell; text-align: center;">
-                    <label for="afternoon_med">Afternoon Medicine</label><p></p>
-                    <p class="btn btn-dark">None</p>
-                </div>
-                <div style="vertical-align: top; display: table-cell; text-align: center;">
-                    <label for="night_med">Night Medicine</label><p></p>
-                    <p class="btn btn-dark">None</p>
-                </div>
-            </div>
-
         </div>
-    </form>
-    <a href="/logout" class='btn btn-danger'>Logout</a>
+        
+        <a href="/logout" class='btn btn-danger'>Logout</a>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
 </html>
