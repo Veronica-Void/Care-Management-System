@@ -15,33 +15,6 @@ class DoctorHomeController extends Controller
     
     public function home()
     {
-        // $newInfo = new patientInfo();
-        // $newInfo->patient_name = "pat1";
-        // $newInfo->patient_id = 5;
-        // $newInfo->docs_id = 3;
-        // $newInfo->docs_appt = "0001-01-01";
-        // $newInfo->caregiver_id = 4;
-        // $newInfo->morning_meds = 0;
-        // $newInfo->afternoon_meds = 0;
-        // $newInfo->night_meds = 0;
-        // $newInfo->breakfast = 0;
-        // $newInfo->lunch = 0;
-        // $newInfo->dinner = 0;
-        // $newInfo->save();
-
-        // $newInfo = new doctor_comments();
-        // $newInfo->patient_id = 5;
-        // $newInfo->docs_id = 3;
-        // $newInfo->comment = "He was very sad.";
-        // $newInfo->appt_id = 1;
-        // $newInfo->save();
-
-        // $newInfo = new additionalPatientInfo();
-        // $newInfo->patient_id = 5;
-        // $newInfo->group = "FirstGroup";
-        // $newInfo->admission_date = date("20y-m-d");
-        // $newInfo->save();
-
         $id = Session::get('loginId');
         $patients = DB::table('patient_infos')->where('docs_id', $id)->get()->pluck("patient_name");
         $patient_id = DB::table('patient_infos')->where('docs_id', $id)->get()->pluck("patient_id");

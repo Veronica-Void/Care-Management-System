@@ -55,6 +55,13 @@
                     <a href="/additionalPatientInfo" class="bg-info header-link">Patient Info</a>
                 </div>
             @endif
+            @if(Session::get('role') == 'doctor')
+                <div class="d-flex flex-wrap justify-content-center">
+                    <a href="/doctor" class="bg-info header-link">Home</a>
+                    <a href="/viewRoster" class="bg-info header-link">View Roster</a>
+                    <a href="/patients" class="bg-info header-link">Patients Page</a>
+                </div>
+            @endif
         </div>
     </header>
     <h2>Perscription Page</h2>
@@ -65,7 +72,7 @@
     @if(session('fail'))
         <p style="color: red;">{{ session('fail') }}</p>
     @endif
-    <form action="{{ route('homePage') }}" method="get">
+    <form action="{{ route('doctor') }}" method="get">
         @csrf
         <div class="card shadow-sm mb-4">
             <div class="container-sm card-header bg-primary text-white">
