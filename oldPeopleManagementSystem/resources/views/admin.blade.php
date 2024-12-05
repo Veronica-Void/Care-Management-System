@@ -71,6 +71,7 @@
                 <a href="admin/approval" class="bg-info header-link">Approval Page</a>
                 <a href="patients" class="bg-info header-link">Patients Page</a>
                 <a href="/additionalPatientInfo" class="bg-info header-link">Patient Info</a>
+                <a href="/adminReport" class="bg-info header-link">Missed Activities Report</a>
             </div>
         @endif
     </div>

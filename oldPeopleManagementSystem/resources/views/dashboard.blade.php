@@ -37,6 +37,7 @@
                 <a href="/admin/approval" class="bg-info header-link">Approval Page</a>
                 <a href="patients" class="bg-info header-link">Patients Page</a>
                 <a href="/additionalPatientInfo" class="bg-info header-link">Patient Info</a>
+                <a href="/adminReport" class="bg-info header-link">Missed Activities Report</a>
             </div>
         @endif
     </div>
@@ -56,7 +57,7 @@
             <td>{{$data->f_name}}</td>
             <td>{{$data->email}}</td>
             <td>{{$data->role}}</td>
-            <td><a href="logout">Logout</a></td>
+            <td><a href="logout" class='btn btn-danger'>Logout</a></td>
         </tr>
     </tbody>
 </table>

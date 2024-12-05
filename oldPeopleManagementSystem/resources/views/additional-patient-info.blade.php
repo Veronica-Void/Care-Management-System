@@ -37,6 +37,7 @@
                 <a href="/admin/approval" class="bg-info header-link">Approval Page</a>
                 <a href="/patients" class="bg-info header-link">Patients Page</a>
                 <a href="/newRoster" class="bg-info header-link">Create Roster</a>
+                <a href="/adminReport" class="bg-info header-link">Missed Activities Report</a>
             </div>
         @endif
     </div>
@@ -73,7 +74,7 @@
     </form>
     
 
-    <a href="/logout">Logout</a>
+    <a href="/logout" class='btn btn-danger'>Logout</a>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
