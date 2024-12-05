@@ -16,17 +16,16 @@
             color: white !important;
         }
         .header-link {
-            margin: 0.5rem;
+            margin: 5px;
             padding: 0.5rem 1rem;
-            text-decoration: none;
-            color: black;
             border-radius: 5px;
-            border: 1px solid #0d6efd;
+            border: solid 1px black;
+            text-decoration: none;
             text-align: center;
         }
         .header-link:hover {
-            background-color: #0d6efd;
-            color: white;
+            background-color: #0056b3;
+            color: white !important;
         }
         .card {
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -62,7 +61,7 @@
     <div class="collapse mt-3" id="adminHeader">
         @if(Session::get('role') == 'admin')
             <div class="d-flex flex-wrap justify-content-center">
-                <a href="/make/appointment" class="bg-info header-link">Appointments</a>
+                <a href="/make/appointment" class="bg-info header-link">Make Appointments</a>
                 <a href="employees" class="bg-info header-link">View Employees</a>
                 <a href="payment" class="bg-info header-link">Manage Payments</a>
                 <a href="viewRoster" class="bg-info header-link">View Roster</a>

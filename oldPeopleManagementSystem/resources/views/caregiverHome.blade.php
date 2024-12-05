@@ -9,25 +9,46 @@
 
 <body>
     <h2>Caregiver Homepage</h2>
-    <p>{{ $message }}</p>
-    <form action="{{ route('getPatient') }}" method="post">
+        <!-- giving a success message once a Patient has been selected successfully -->
+        @if(Session::has('success'))
+            <div id="successMsg" class="alert alert-success">{{ Session::get('success') }}</div>
+            <script>
+                // timer for the success message to disappear after a few seconds
+                setTimeout(function() {
+                    let message = document.getElementById('successMsg');
+                    if (message) {
+                        message.style.display = 'none';
+                    }
+                }, 2000); // 5000 milliseconds = 5 seconds
+            </script>
+        @endif
+    <form action="{{ route('selectPatient') }}" method="post">
         @csrf
         <div class="container mt" style="margin-bottom: 3%;">
+            <!-- displaying the patient's first and last names in the dropdown menu -->
             <label for="patient">Patient:</label>
             <select name="patient" id="patient" class="form-control" style="max-width: 25%;">
                 @if ($patients != "N/A")
                     @foreach ($patients as $patient)
-                        <option>{{ $patient }}</option>
+                        <option value="{{ $patient->f_name }}">{{ $patient->f_name }} {{ $patient->l_name }}</option>
                     @endforeach
                     
                     @else
                         <option>N/A</option>
-                    @endelse
                 @endif
             </select>
-            <button type="submit" class="btn btn-primary success-bg-subtle">Search</button>
+            <button type="submit" class="btn btn-primary success-bg-subtle">Select Patient</button>
+
         </div>
     </form>
+                <!-- displaying the patient you are currently editing things for -->
+    <div class="card shadow-sm mb-4">
+        The patient You have selected is:
+        @if (Session::has('selected_patient'))
+            <div class="container mt">{{ Session::get('selected_patient') }}</div>
+        @endif
+    </div>
+
     <form action="{{ route('check') }}" method="post">
         @csrf
         <div class="card shadow-sm mb-4">
@@ -62,7 +83,7 @@
                 </div>
             </div>
         </div>
-        <button type="submit" class="btn approve btn-primary success-bg-subtle" style="margin-left: 10px; margin-bottom: 10px; margin-top: 3%;">Confirm</button>
+        <a href="" class="btn approve btn-primary success-bg-subtle" style="margin-left: 10px; margin-bottom: 10px; margin-top: 3%;">Confirm</a>
     </form>
     <a href="" class="btn approve btn-primary success-bg-subtle" style="margin-left: 10px; margin-bottom: 10px; margin-top: 3%;">Clear</a>
     <a href="/logout">Logout</a>

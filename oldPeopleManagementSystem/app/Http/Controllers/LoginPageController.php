@@ -106,10 +106,6 @@ class LoginPageController extends Controller
                 return redirect()->route('caregiver');
             }elseif ($user->role == 'patient'){
                 return redirect()->route('patientHome');
-            }elseif ($user->role == 'doctor'){
-                return redirect()->route('doctor');
-            }elseif ($user->role == 'family_member'){
-                return redirect()->route('familyHome');
             }
             return redirect()->route('dashboard');
         }
@@ -149,8 +145,7 @@ class LoginPageController extends Controller
     // Only allow 'admin' to access the approval page and approve new users
     public function approval()
     {
-        if (!in_array(Session::get('role'), ['admin', 'supervisor'])) {
-
+        if (Session::get('role') !== 'admin') {
             return back()->with('fail', 'You must be an admin');
         }
         // Fetch users awaiting approval
@@ -163,10 +158,9 @@ class LoginPageController extends Controller
     // Method to approve a user
     public function approveUser($id)
     {
-        if (!in_array(Session::get('role'), ['admin', 'supervisor'])) {
-            return back()->with('fail', 'Unauthorized access. Only admins or supervisors can approve users.');
+        if (Session::get('role') !== 'admin') {
+            return back()->with('fail', 'Unauthorized access');
         }
-        
 
         $user = LoginPage::find($id);
 
@@ -182,10 +176,9 @@ class LoginPageController extends Controller
     // Method to deny a user
     public function denyUser($id)
     {
-        if (!in_array(Session::get('role'), ['admin', 'supervisor'])) {
-            return back()->with('fail', 'Unauthorized access. Only admins or supervisors can approve users.');
+        if (Session::get('role') !== 'admin') {
+            return back()->with('fail', 'Unauthorized access');
         }
-        
 
         $user = LoginPage::find($id);
 
@@ -413,6 +406,7 @@ class LoginPageController extends Controller
     // Pass the data to the view
     return view('adminReport', ['reportData' => $reportData]);
 }
+    }
 
     
-    }
+    }}
