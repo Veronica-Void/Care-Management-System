@@ -28,6 +28,7 @@ class PatientInfoController extends Controller
         return view("caregiverHome", compact("patients"));
     }
 
+
     public function selectPatient(Request $request)
     {
         //keeping the selected patient's name in the session and displaying it
@@ -118,6 +119,8 @@ class PatientInfoController extends Controller
         return view("careGiverHome", compact("patients", "message"));
     }
 
+        return view("careGiverHome", compact("patients", "message"));
+    }
 
     public function searchPatient(Request $request)
     {

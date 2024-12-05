@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Doctor Home Page</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
 <style>
     .header-link {
         margin: 0.5rem;
@@ -75,6 +74,8 @@
             <h3>Current Appointments</h3>
         </div>
             @if ($patients != "N/A")
+
+
                 @foreach ($patients as $patient)
                     @if ($date[$loop->iteration - 1] == date("20y-m-d"))
                     <div class="container-sm card-header bg-secondary text-white" style="display: table; padding: 10px;">
