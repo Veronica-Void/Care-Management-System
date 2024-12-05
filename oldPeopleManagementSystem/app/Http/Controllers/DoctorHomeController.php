@@ -101,7 +101,12 @@ class DoctorHomeController extends Controller
         $newData->dinner = 0;
         $newData->save();
 
-        // GET ALL PREVIOUS PATIENT APPOINTMENTS TOO!!
+        $newData = new doctor_comments();
+        $newData->patient_id = $searchID;
+        $newData->docs_id = $id;
+        $newData->comment = $request->comment;
+        $newData->appt_id = DB::table('patient_infos')->latest('id')->get()->value("id");
+        $newData->save();
 
         return view("doctorHome", compact("patients", "patient_id", "patient_name", "date", "data", "comment"));
     }
