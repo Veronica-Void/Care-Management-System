@@ -406,6 +406,7 @@ class LoginPageController extends Controller
     // Pass the data to the view
     return view('adminReport', ['reportData' => $reportData]);
 }
+    }
 
     
-    }
+    }}

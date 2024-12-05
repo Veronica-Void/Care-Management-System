@@ -56,57 +56,67 @@ class PatientInfoController extends Controller
         $newData->lunch = $request->lunch;
         $newData->dinner = $request->dinner;
         $newData->save();
-
-    public function editMeds(Request $request)
-{
-    // Validate request to ensure at least one checkbox input is provided
-    $request->validate([
-        'patient' => 'required|string', // Ensure a patient is selected
-        'morning_med' => 'nullable|boolean',
-        'afternoon_med' => 'nullable|boolean',
-        'night_med' => 'nullable|boolean',
-        'breakfast' => 'nullable|boolean',
-        'lunch' => 'nullable|boolean',
-        'dinner' => 'nullable|boolean',
-    ]);
-
-    $caregiverId = Session::get('loginId');
-    $patientName = $request->input('patient');
-
-    // Find the patient's record in the database
-    $patient = DB::table('patient_infos')
-        ->where('caregiver_id', $caregiverId)
-        ->where('patient_name', $patientName)
-        ->first();
-
-    if (!$patient) {
-        return back()->with('error', 'Patient not found or not assigned to the caregiver.');
     }
 
-    // Update the medication and meal statuses
-    DB::table('patient_infos')
-        ->where('id', $patient->id) // Match the patient's record
-        ->update([
-            'morning_meds' => $request->has('morning_med') ? 1 : 0,
-            'afternoon_meds' => $request->has('afternoon_med') ? 1 : 0,
-            'night_meds' => $request->has('night_med') ? 1 : 0,
-            'breakfast' => $request->has('breakfast') ? 1 : 0,
-            'lunch' => $request->has('lunch') ? 1 : 0,
-            'dinner' => $request->has('dinner') ? 1 : 0,
+    public function editMeds(Request $request)
+    {
+        // Validate request to ensure at least one checkbox input is provided
+        $request->validate([
+            'patient' => 'required|string', // Ensure a patient is selected
+            'morning_med' => 'nullable|boolean',
+            'afternoon_med' => 'nullable|boolean',
+            'night_med' => 'nullable|boolean',
+            'breakfast' => 'nullable|boolean',
+            'lunch' => 'nullable|boolean',
+            'dinner' => 'nullable|boolean',
         ]);
 
     // Fetch updated patients list
     $patients = DB::table('patient_infos')->where('caregiver_id', $caregiverId)->pluck('patient_name');
+        $caregiverId = Session::get('loginId');
+        $patientName = $request->input('patient');
 
     if (count($patients) == 0) {
         $patients = "N/A";
     }
+        // Find the patient's record in the database
+        $patient = DB::table('patient_infos')
+            ->where('caregiver_id', $caregiverId)
+            ->where('patient_name', $patientName)
+            ->first();
+
+        if (!$patient) {
+            return back()->with('error', 'Patient not found or not assigned to the caregiver.');
+        }
 
     $message = "Patient records have been successfully updated.";
+        // Update the medication and meal statuses
+        DB::table('patient_infos')
+            ->where('id', $patient->id) // Match the patient's record
+            ->update([
+                'morning_meds' => $request->has('morning_med') ? 1 : 0,
+                'afternoon_meds' => $request->has('afternoon_med') ? 1 : 0,
+                'night_meds' => $request->has('night_med') ? 1 : 0,
+                'breakfast' => $request->has('breakfast') ? 1 : 0,
+                'lunch' => $request->has('lunch') ? 1 : 0,
+                'dinner' => $request->has('dinner') ? 1 : 0,
+            ]);
+
+        // Fetch updated patients list
+        $patients = DB::table('patient_infos')->where('caregiver_id', $caregiverId)->pluck('patient_name');
 
     // Return the caregiver home view with updated data and success message
     return view("careGiverHome", compact("patients", "message"));
 }
+        if (count($patients) == 0) {
+            $patients = "N/A";
+        }
+
+        $message = "Patient records have been successfully updated.";
+
+        // Return the caregiver home view with updated data and success message
+        return view("careGiverHome", compact("patients", "message"));
+    }
 
 
     public function searchPatient(Request $request)
