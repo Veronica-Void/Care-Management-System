@@ -28,8 +28,8 @@
         <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#adminHeader" aria-expanded="false" aria-controls="adminHeader">
             Toggle Menu
         </button>
-        <div class="collapse mt-3" id="adminHeader">
-            @if(Session::get('role') == 'family_member')
+        <div class="collapse mt-3" id="adminHeader" role="region" aria-label="Admin Menu">
+            @if(Session::get('role') === 'family_member')
                 <div class="d-flex flex-wrap justify-content-center">
                     <a href="/viewRoster" class="header-link">View Roster</a>
                 </div>
@@ -37,7 +37,6 @@
                 <p class="text-danger">You do not have access to this menu.</p>
             @endif
         </div>
-        <p>Today's date is: <?php echo date('l, F j, Y'); ?></p>
     </header>
 
     <div class="container mt-5">
@@ -56,6 +55,10 @@
                     <label for="patient_id" class="form-label">Enter Patient ID</label>
                     <input type="text" class="form-control" id="patient_id" name="patient_id" required>
                 </div>
+                <div class="mb-3">
+                    <label for="date" class="form-label">Enter Date of Appointment</label>
+                    <input type="date" class="form-control" id="date" name="date" required>
+                </div>
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary">Search</button>
                 </div>
@@ -69,7 +72,7 @@
                     <thead>
                         <tr>
                             <th>Patient Name</th>
-                            <th>Patient Id</th>
+                            <th>Patient ID</th>
                             <th>Doctor's ID</th>
                             <th>Doctor's Appointment</th>
                             <th>Caregiver ID</th>
@@ -98,7 +101,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="12" class="text-center">No details found for this family code or patient ID</td>
+                                <td colspan="11" class="text-center">No details found for this family code or patient ID.</td>
                             </tr>
                         @endforelse
                     </tbody>
