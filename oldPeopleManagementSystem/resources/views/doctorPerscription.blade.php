@@ -20,7 +20,7 @@
             background-color: #0d6efd;
             color: white;
         }
-</style>
+    </style>
 <body>
     <header class="container text-center my-4">
         <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#adminHeader" aria-expanded="false" aria-controls="adminHeader">
