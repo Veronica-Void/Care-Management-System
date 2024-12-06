@@ -74,7 +74,7 @@
         @csrf
         <div class="card shadow-sm mb-4">
             <div class="container-sm card-header bg-primary text-white">
-                <h3>Current Appointments</h3>
+                <h3>Appointments</h3>
             </div>
             @foreach ($data as $m)
             <div class="container-sm card-header bg-secondary text-white" style="display: table; padding: 10px;">
