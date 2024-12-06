@@ -245,23 +245,24 @@ class LoginPageController extends Controller
         return view('patients', compact('approvedUsers'));
     }
     public function updateSalary(Request $request)
-{
-    // Validate the form inputs
-    $request->validate([
-        'id' => 'required|exists:users,id',
-        'salary' => 'required|numeric|min:0',
-    ]);
+    {   
+        // Validate the form inputs
+        $request->validate([
+            'id' => 'required|exists:users,id',
+            'salary' => 'required|numeric|min:0',
+        ]);
 
-    // Find the user by ID and update their salary
-    $user = LoginPage::find($request->id);
-    $user->salary = $request->salary;
-    
-    if ($user->save()) {
-        return redirect()->back()->with('success', 'Salary updated successfully');
-    } else {
-        return redirect()->back()->with('fail', 'Salary update failed');
+        // Find the user by ID and update their salary
+        $user = LoginPage::find($request->id);
+        $user->salary = $request->salary;
+        
+        if ($user->save()) {
+            return redirect()->back()->with('success', 'Salary updated successfully');
+        } else {
+            return redirect()->back()->with('fail', 'Salary update failed');
+        }
     }
-}
+
     public function createRoster(Request $request)
     {
         // Validate the request data
@@ -363,54 +364,54 @@ class LoginPageController extends Controller
     }
     
     public function missedActivityReport()
-{
-    // Fetch all patients with missed activities
-    $missedActivities = DB::table('patient_infos')
-        ->join('users', 'users.id', '=', 'patient_infos.patient_id')
-        ->select(
-            'patient_infos.patient_name',
-            'patient_infos.patient_id',
-            'patient_infos.caregiver_id',
-            'users.family_code',
-            DB::raw("CASE WHEN patient_infos.morning_meds = 0 THEN 'Morning Medicine' END AS missed_morning"),
-            DB::raw("CASE WHEN patient_infos.afternoon_meds = 0 THEN 'Afternoon Medicine' END AS missed_afternoon"),
-            DB::raw("CASE WHEN patient_infos.night_meds = 0 THEN 'Night Medicine' END AS missed_night"),
-            DB::raw("CASE WHEN patient_infos.breakfast = 0 THEN 'Breakfast' END AS missed_breakfast"),
-            DB::raw("CASE WHEN patient_infos.lunch = 0 THEN 'Lunch' END AS missed_lunch"),
-            DB::raw("CASE WHEN patient_infos.dinner = 0 THEN 'Dinner' END AS missed_dinner")
-        )
-        ->where(function ($query) {
-            $query->where('patient_infos.morning_meds', 0)
-                ->orWhere('patient_infos.afternoon_meds', 0)
-                ->orWhere('patient_infos.night_meds', 0)
-                ->orWhere('patient_infos.breakfast', 0)
-                ->orWhere('patient_infos.lunch', 0)
-                ->orWhere('patient_infos.dinner', 0);
-        })
-        ->get();
+    {
+        // Fetch all patients with missed activities
+        $missedActivities = DB::table('patient_infos')
+            ->join('users', 'users.id', '=', 'patient_infos.patient_id')
+            ->select(
+                'patient_infos.patient_name',
+                'patient_infos.patient_id',
+                'patient_infos.caregiver_id',
+                'users.family_code',
+                DB::raw("CASE WHEN patient_infos.morning_meds = 0 THEN 'Morning Medicine' END AS missed_morning"),
+                DB::raw("CASE WHEN patient_infos.afternoon_meds = 0 THEN 'Afternoon Medicine' END AS missed_afternoon"),
+                DB::raw("CASE WHEN patient_infos.night_meds = 0 THEN 'Night Medicine' END AS missed_night"),
+                DB::raw("CASE WHEN patient_infos.breakfast = 0 THEN 'Breakfast' END AS missed_breakfast"),
+                DB::raw("CASE WHEN patient_infos.lunch = 0 THEN 'Lunch' END AS missed_lunch"),
+                DB::raw("CASE WHEN patient_infos.dinner = 0 THEN 'Dinner' END AS missed_dinner")
+            )
+            ->where(function ($query) {
+                $query->where('patient_infos.morning_meds', 0)
+                    ->orWhere('patient_infos.afternoon_meds', 0)
+                    ->orWhere('patient_infos.night_meds', 0)
+                    ->orWhere('patient_infos.breakfast', 0)
+                    ->orWhere('patient_infos.lunch', 0)
+                    ->orWhere('patient_infos.dinner', 0);
+            })
+            ->get();
 
-    $reportData = $missedActivities->map(function ($activity) {
-        $missed = [];
-        if ($activity->missed_morning) $missed[] = $activity->missed_morning;
-        if ($activity->missed_afternoon) $missed[] = $activity->missed_afternoon;
-        if ($activity->missed_night) $missed[] = $activity->missed_night;
-        if ($activity->missed_breakfast) $missed[] = $activity->missed_breakfast;
-        if ($activity->missed_lunch) $missed[] = $activity->missed_lunch;
-        if ($activity->missed_dinner) $missed[] = $activity->missed_dinner;
+        $reportData = $missedActivities->map(function ($activity) {
+            $missed = [];
+            if ($activity->missed_morning) $missed[] = $activity->missed_morning;
+            if ($activity->missed_afternoon) $missed[] = $activity->missed_afternoon;
+            if ($activity->missed_night) $missed[] = $activity->missed_night;
+            if ($activity->missed_breakfast) $missed[] = $activity->missed_breakfast;
+            if ($activity->missed_lunch) $missed[] = $activity->missed_lunch;
+            if ($activity->missed_dinner) $missed[] = $activity->missed_dinner;
 
-        return [
-            'patient_name' => $activity->patient_name,
-            'patient_id' => $activity->patient_id,
-            'caregiver_id' => $activity->caregiver_id,
-            'family_code' => $activity->family_code,
-            'missed_activities' => implode(', ', $missed),
-        ];
-    });
+            return [
+                'patient_name' => $activity->patient_name,
+                'patient_id' => $activity->patient_id,
+                'caregiver_id' => $activity->caregiver_id,
+                'family_code' => $activity->family_code,
+                'missed_activities' => implode(', ', $missed),
+            ];
+        });
 
-    // Pass the data to the view
-    return view('adminReport', ['reportData' => $reportData]);
-}
+        // Pass the data to the view
+        return view('adminReport', ['reportData' => $reportData]);
     }
 
     
-    
+}
+

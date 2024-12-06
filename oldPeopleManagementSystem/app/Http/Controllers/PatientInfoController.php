@@ -32,7 +32,7 @@ class PatientInfoController extends Controller
     public function selectPatient(Request $request)
     {
         //keeping the selected patient's name in the session and displaying it
-        $selectedPatientName = $request->input('patient');
+        $selectedPatientName = $request->input('patient_name');
         Session()->put('selected_patient', $selectedPatientName);
 
         return redirect()->route('caregiver')->with('success', 'Patient selected successfully');
@@ -72,14 +72,9 @@ class PatientInfoController extends Controller
             'dinner' => 'nullable|boolean',
         ]);
 
-    // Fetch updated patients list
-    $patients = DB::table('patient_infos')->where('caregiver_id', $caregiverId)->pluck('patient_name');
         $caregiverId = Session::get('loginId');
         $patientName = $request->input('patient');
 
-    if (count($patients) == 0) {
-        $patients = "N/A";
-    }
         // Find the patient's record in the database
         $patient = DB::table('patient_infos')
             ->where('caregiver_id', $caregiverId)
@@ -90,7 +85,6 @@ class PatientInfoController extends Controller
             return back()->with('error', 'Patient not found or not assigned to the caregiver.');
         }
 
-    $message = "Patient records have been successfully updated.";
         // Update the medication and meal statuses
         DB::table('patient_infos')
             ->where('id', $patient->id) // Match the patient's record
@@ -106,9 +100,6 @@ class PatientInfoController extends Controller
         // Fetch updated patients list
         $patients = DB::table('patient_infos')->where('caregiver_id', $caregiverId)->pluck('patient_name');
 
-    // Return the caregiver home view with updated data and success message
-    return view("careGiverHome", compact("patients", "message"));
-}
         if (count($patients) == 0) {
             $patients = "N/A";
         }
@@ -147,6 +138,46 @@ class PatientInfoController extends Controller
         $details = patientInfo::all();
         // Return the view with the roster data
         return view('patientHome', compact('details', 'current_patient'));
+    }
+
+    public function storePatientInfo (Request $request){
+        if($request->roles === 'caregiver'){
+            $request->validate([
+                'patient_name' => 'required|string',
+                'patient_id' => 'nullable|integer',
+                'docs_name' => 'nullable|string',
+                'docs_appt' => 'nullable|string',
+                'caregiver_first' => 'nullable|string',
+                'caregiver_last' => 'nullable|string',
+                'morning_meds' => 'required|integer',
+                'afternoon_meds' => 'required|integer',
+                'night_meds' => 'required|integer',
+                'breakfast' => 'required|integer',
+                'lunch' => 'required|integer',
+                'dinner' => 'required|integer',
+            ]);
+        }
+        
+        //new instance to add the checked boxes to the database. 
+        //have to figure out how to add a value or price to the doc appt, meals, etc so I can calculate it and use in payment functionality.
+        $submitChecklist = new PatientInfo();
+        $submitChecklist->patient_name = $request->input('patient_name');
+        $submitChecklist->patient_id = $request->input('patient_id');
+        //for doctors name and appt, you have to get that info from the database and then add it to the patient info table
+        //make sure the correct doctor is selected by default, for example: If patient is group A and Doc has Group A then they are assigned to that doctor.
+        $submitChecklist->docs_name = $request->input('docs_name');
+        $submitChecklist->docs_appt = $request->input('docs_appt');
+        $submitChecklist->caregiver_first = $request->input('caregiver_first');
+        $submitChecklist->caregiver_last = $request->input('caregiver_last');
+        $submitChecklist->morning_meds = $request->input('morning_meds');
+        $submitChecklist->afternoon_meds = $request->input('afternoon_meds');
+        $submitChecklist->night_meds = $request->input('night_meds');
+        $submitChecklist->breakfast = $request->input('breakfast');
+        $submitChecklist->lunch = $request->input('lunch');
+        $submitChecklist->dinner = $request->input('dinner');
+        $submitChecklist->save();
+        return redirect()->route('caregiver')->with('success', 'Patient information has been added.');
+
     }
 }
 
