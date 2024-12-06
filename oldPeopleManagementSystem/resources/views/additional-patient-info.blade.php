@@ -5,8 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Patient Info</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .header-link {
+            margin: 0.5rem;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            color: black;
+            border-radius: 5px;
+            border: 1px solid #0d6efd;
+            text-align: center;
+        }
+        .header-link:hover {
+            background-color: #0d6efd;
+            color: white;
+        }
+    </style>
 </head>
-    <header style="display: block; margin-top: 20px;">
+    <header class="container text-center my-4">
+    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#adminHeader" aria-expanded="false" aria-controls="adminHeader">
+        Toggle Menu
+    </button>
+    <div class="collapse mt-3" id="adminHeader">
         @if(Session::get('role') == 'admin')
             <div class="d-flex flex-wrap justify-content-center">
             <a href="/admin" class="bg-info header-link">Home</a>
@@ -21,24 +40,12 @@
                 <a href="/adminReport" class="bg-info header-link">Missed Activities Report</a>
             </div>
         @endif
-        <a href="make_appointment" class="bg-primary-subtle text-black" style="border-radius: 10px; border: solid; border-color: black; text-align: center; width: 10%; padding: 0.1%; margin-top: 1%; text-decoration: none;">Schedule appointments for patients</a>
-        <a href="employees" class="bg-primary-subtle text-black" style="border-radius: 10px; border: solid; border-color: black; text-align: center; width: 10%; padding: 0.1%; margin-top: 1%; text-decoration: none;">View Employees</a>
-        <a href="payment" class="bg-primary-subtle text-black" style="border-radius: 10px; border: solid; border-color: black; text-align: center; width: 10%; padding: 0.1%; margin-top: 1%; text-decoration: none;">Manage Payments</a>
-        <a href="roster" class="bg-primary-subtle text-black" style="border-radius: 10px; border: solid; border-color: black; text-align: center; width: 10%; padding: 0.1%; margin-top: 1%; text-decoration: none;">View the roster</a>
-        <a href="create_roster" class="bg-primary-subtle text-black" style="border-radius: 10px; border: solid; border-color: black; text-align: center; width: 10%; padding: 0.1%; margin-top: 1%; text-decoration: none;">Create a Roster</a>
-        <a href="/admin/role" class="bg-primary-subtle text-black" style="border-radius: 10px; border: solid; border-color: black; text-align: center; width: 10%; padding: 0.1%; margin-top: 1%; text-decoration: none;">Role page</a>
-        <a href="approval" class="bg-primary-subtle text-black" style="border-radius: 10px; border: solid; border-color: black; text-align: center; width: 10%; padding: 0.1%; margin-top: 1%; text-decoration: none;">Approval page</a>
-        <a href="patients" class="bg-primary-subtle text-black" style="border-radius: 10px; border: solid; border-color: black; text-align: center; width: 10%; padding: 0.1%; margin-top: 1%; text-decoration: none;">Patients page</a>
-        <a href="/additionalPatientInfo" class="bg-primary-subtle text-black" style="border-radius: 10px; border: solid; border-color: black; text-align: center; width: 10%; padding: 0.1%; margin-top: 1%; text-decoration: none;">Patient Info</a>
-        <a href="/make/appointment" class="bg-primary-subtle text-black" style="border-radius: 10px; border: solid; border-color: black; text-align: center; width: 10%; padding: 0.1%; margin-top: 1%; text-decoration: none;">Make Appointment</a>
-    </header>
+    </div>
+</header>
 <body>
     
     <h1>Welcome to the additional patient info page!</h1>
-    <form action="{{ route('additional-patient-info') }}" method="POST">
-        @if(Session::has('success'))
-            <div class="alert alert-success">{{ Session::get('success') }}</div>
-        @endif
+    <form action="{{ route('additional-patient-info.store') }}" method="POST">
         @csrf
         <table>
             <thead>
@@ -50,28 +57,20 @@
             <tbody>
                 <tr>
                     <td>
-                        <input type="text" name="patient_id" placeholder="Patient ID">
+                        <input type="text" name="patient_id" placeholder="Create 5-digit patient ID">
                     </td>
 
                     <td>
-                        <input type="text" name="group" placeholder="Ex: A, B, C, D" required>
+                        <input type="text" name="group" placeholder="Ex: A, B, C, D">
                     </td>
 
                     <td>
-                        <input type="date" name="admission_date" placeholder="Select Date" required>
-                    </td>
-
-                    <td>
-                        <select name="patient_name" id="patient_name" class="form-select" required>
-                            @foreach ($patients as $user)
-                                <option value="{{ $user->f_name }}"> {{ $user->f_name }} </option>
-                            @endforeach
-                        </select>
+                        <input type="date" name="admission_date" placeholder="Select admission date">
                     </td>
                 </tr>
             </tbody>
         </table>
-        <button type="submit" class="btn btn-primary">Add Patient Info</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
     </form>
     
 

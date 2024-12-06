@@ -7,16 +7,17 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .header-link {
-            margin: 5px;
+            margin: 0.5rem;
             padding: 0.5rem 1rem;
-            border-radius: 5px;
-            border: solid 1px black;
             text-decoration: none;
+            color: black;
+            border-radius: 5px;
+            border: 1px solid #0d6efd;
             text-align: center;
         }
         .header-link:hover {
-            background-color: #0056b3;
-            color: white !important;
+            background-color: #0d6efd;
+            color: white;
         }
     </style>
 </head>

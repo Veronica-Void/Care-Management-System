@@ -106,6 +106,10 @@ class LoginPageController extends Controller
                 return redirect()->route('caregiver');
             }elseif ($user->role == 'patient'){
                 return redirect()->route('patientHome');
+            }elseif ($user->role == 'doctor'){
+                return redirect()->route('doctor');
+            }elseif ($user->role == 'family_member'){
+                return redirect()->route('familyHome');
             }
             return redirect()->route('dashboard');
         }
@@ -409,4 +413,4 @@ class LoginPageController extends Controller
     }
 
     
-    }}
+    

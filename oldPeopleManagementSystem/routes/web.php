@@ -8,6 +8,7 @@ use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\AdditionalPatientInfoController;
 use App\Http\Controllers\PatientInfoController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\DoctorHomeController;
 
 Route::get('/', function () {
     return view('welcome');
