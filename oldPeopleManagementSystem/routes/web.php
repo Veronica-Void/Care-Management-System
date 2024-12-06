@@ -41,10 +41,6 @@ Route::post('/store-roster', [LoginPageController::class, 'createRoster'])->name
 Route::get('newRoster',[LoginPageController::class,'newRoster'])->name('newRoster');
 });
 
-
-
-
-
 Route::get('/make/appointment', [AppointmentController::class, 'appointment'])->name('appointments');
 Route::post('/make/appointment', [AppointmentController::class, 'getPatient'])->name('find_patient');
 Route::post('/make/appointment/create', [AppointmentController::class, 'makeAppointment'])->name('makeAppointment');
@@ -76,6 +72,7 @@ Route::post('/store-roster', [LoginPageController::class, 'createRoster'])->name
 Route::get('newRoster',[LoginPageController::class,'newRoster'])->name('newRoster');
 Route::get('approve/{id}', [LoginPageController::class, 'approveUser'])->name('approveUser');
 Route::get('deny/{id}', [LoginPageController::class, 'denyUser'])->name('denyUser');
+
 //Caregiver Routes
 Route::get('/caregiver', [PatientInfoController::class, 'caregiver'])->name('caregiver');
 Route::post('/editMeds', [PatientInfoController::class, 'editMeds'])->name('check');
