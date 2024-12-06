@@ -21,7 +21,6 @@
             color: white;
         }
     </style>
-</head>
 <body>
 <header class="container text-center my-4">
     <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#adminMenu" aria-expanded="false" aria-controls="adminMenu">
@@ -69,12 +68,10 @@
             </div>
         @endif
         @if(Session::get('role') == 'patient')
-            <div class="d-flex flex-wrap justify-content-center">
-                <a href="/patientHome" class="bg-info header-link">Home</a>
-            </div>
+        <a href="/patientHome" class="bg-primary-subtle text-black" style="border-radius: 10px; border: solid; border-color: black; text-align: center; width: 10%; padding: 0.1% 0.5% 0.1% 0.5%; margin-top: 1%; margin-left: 1%; text-decoration: none;">Home</a>
         @endif
-    </div>
-</header>
+        
+    </header>
     <div class="container mt-5">
         <h1>Roster List</h1>
         @if(session('success'))

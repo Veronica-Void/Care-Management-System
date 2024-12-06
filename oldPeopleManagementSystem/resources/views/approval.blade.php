@@ -52,7 +52,6 @@
                     <a href="/patients" class="bg-info header-link">Patients Page</a>
                     <a href="/additionalPatientInfo" class="bg-info header-link">Patient Info</a>
                     <a href="/adminReport" class="bg-info header-link">Missed Activities Report</a>
-                    <a href="/viewRoster" class="bg-info header-link">View Roster</a>
                 </div>
                 @endif
         </div>

@@ -29,35 +29,32 @@ Route::get('patientHome', [PatientInfoController::class, 'patientHome'])->name('
 // Admin routes
 Route::group(['middleware' => ['admin']], function () {
     Route::get('/admin', [LoginPageController::class, 'admin'])->name('admin');
-
+    Route::get('admin/approval', [LoginPageController::class, 'approval'])->name('approval');
+    Route::get('approve/{id}', [LoginPageController::class, 'approveUser'])->name('approveUser');
+    Route::get('deny/{id}', [LoginPageController::class, 'denyUser'])->name('denyUser');
     Route::get('/admin/role', [AdminPageController::class, 'role'])->name('admin-role');
     Route::post('/admin/role', [AdminPageController::class, 'makeRole'])->name('change-role');
-    Route::post('/update-salary', [LoginPageController::class, 'updateSalary'])->name('update.salary');
-    Route::get('/payment', [PaymentController::class, 'viewPaymentPage'])->name('viewPaymentPage');
-Route::post('payment', [PaymentController::class, 'store'])->name('payment.store');
+});
+
+Route::post('/update-salary', [LoginPageController::class, 'updateSalary'])->name('update.salary');
 Route::post('newRoster',[LoginPageController::class,'newRoster'])->name('newRoster');
 Route::get('/create-roster', [LoginPageController::class, 'newRoster'])->name('roster.create');
 Route::post('/store-roster', [LoginPageController::class, 'createRoster'])->name('roster.store');
 Route::get('newRoster',[LoginPageController::class,'newRoster'])->name('newRoster');
-});
-
 Route::get('/make/appointment', [AppointmentController::class, 'appointment'])->name('appointments');
 Route::post('/make/appointment', [AppointmentController::class, 'getPatient'])->name('find_patient');
 Route::post('/make/appointment/create', [AppointmentController::class, 'makeAppointment'])->name('makeAppointment');
 Route::get('/employees',[LoginPageController::class, 'employees'])->name('employees');
 Route::post('/employees',[LoginPageController::class, 'searchForTerm'])->name('search');
-Route::post('/additionalPatientInfo', [AdditionalPatientInfoController::class, 'patientInfo'])->name('patientInfo');
+Route::get('/additionalPatientInfo', [AdditionalPatientInfoController::class, 'patientInfo'])->name('patientInfo');
 Route::post('/additionalPatientInfo/store', [AdditionalPatientInfoController::class, 'store'])->name('additional-patient-info.store');
+// Route::post('/additionalPatientInfo', [AdditionalPatientInfoController::class, 'patientInfo'])->name('patientInfo');
 Route::post('/additional-patient-info', [AdditionalPatientInfoController::class, 'store'])->name('additional-patient-info');
 
 //Payment routes - Can only be accessed by admin
 Route::get('/payment', [PaymentController::class, 'viewPaymentPage'])->name('viewPaymentPage');
 Route::post('payment', [PaymentController::class, 'store'])->name('payment.store');
 
-
-
-Route::get('/familyHome', [LoginPageController::class, 'familyHome'])->name('familyHome');
-Route::post('/familyHome', [LoginPageController::class, 'familyHome'])->name('familyHome');
 
 
 // Also for Supervisor
@@ -75,6 +72,9 @@ Route::get('deny/{id}', [LoginPageController::class, 'denyUser'])->name('denyUse
 
 //Caregiver Routes
 Route::get('/caregiver', [PatientInfoController::class, 'caregiver'])->name('caregiver');
+Route::post('/caregiver/storePatientInfo', [PatientInfoController::class, 'storePatientInfo'])->name('storePatientInfo');
+Route::post('/caregiver/selectPatient', [PatientInfoController::class, 'selectPatient'])->name('selectPatient');
+
 Route::post('/editMeds', [PatientInfoController::class, 'editMeds'])->name('check');
 Route::post('/caregiver/search', [PatientInfoController::class, 'searchPatient'])->name('getPatient');
 
@@ -82,5 +82,10 @@ Route::post('/caregiver/search', [PatientInfoController::class, 'searchPatient']
 Route::get('/doctor', [DoctorHomeController::class, 'home'])->name('doctor');
 Route::post('/doctor/patient', [DoctorHomeController::class, 'searchPatient'])->name('searchPatient');
 Route::post('/doctor', [DoctorHomeController::class, 'newPerscription'])->name('newPerscription');
+
+
+?>
+
+
 
 ?>

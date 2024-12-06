@@ -5,22 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Doctor Home Page</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<style>
-    .header-link {
-        margin: 0.5rem;
-        padding: 0.5rem 1rem;
-        text-decoration: none;
-        color: black;
-        border-radius: 5px;
-        border: 1px solid #0d6efd;
-        text-align: center;
-    }
-    .header-link:hover {
-        background-color: #0d6efd;
-        color: white;
-    }
-</style>
+    <style>
+        .header-link {
+            margin: 0.5rem;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            color: black;
+            border-radius: 5px;
+            border: 1px solid #0d6efd;
+            text-align: center;
+        }
+        .header-link:hover {
+            background-color: #0d6efd;
+            color: white;
+        }
+    </style>
 <body>
     <header class="container text-center my-4">
         <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#adminHeader" aria-expanded="false" aria-controls="adminHeader">
@@ -75,6 +74,8 @@
             <h3>Current Appointments</h3>
         </div>
             @if ($patients != "N/A")
+
+
                 @foreach ($patients as $patient)
                     @if ($date[$loop->iteration - 1] == date("20y-m-d"))
                     <div class="container-sm card-header bg-secondary text-white" style="display: table; padding: 10px;">
