@@ -79,9 +79,6 @@ Route::get('/doctor', [DoctorHomeController::class, 'home'])->name('doctor');
 Route::post('/doctor/patient', [DoctorHomeController::class, 'searchPatient'])->name('searchPatient');
 Route::post('/doctor', [DoctorHomeController::class, 'newPerscription'])->name('newPerscription');
 
-
-?>
-
-
+Route::get('/familyHome', [LoginPageController::class, 'familyHome'])->name('familyHome');
 
 ?>
