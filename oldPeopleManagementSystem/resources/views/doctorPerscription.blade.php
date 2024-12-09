@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pescription Page</title>
+    <title>Prescription Page</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <style>
@@ -36,7 +36,7 @@
             @endif
         </div>
     </header>
-    <h2>Perscription Page</h2>
+    <h2>Prescription Page</h2>
 
     @if(session('success'))
         <p style="color: green;">{{ session('success') }}</p>
@@ -102,7 +102,7 @@
         @csrf
         <div class="card shadow-sm mb-4">
             <div class="container-sm card-header bg-primary text-white">
-                <h3>New Perscription</h3>
+                <h3>New Prescription</h3>
             </div>
             <div class="container-sm card-header bg-secondary text-white" style="display: table; padding: 10px;">
                 <input type="hidden" class="form-control" name="patient_name" id="patient_name" value="{{ $patient_name }}" style="max-width: 80%; margin-left: 10%;">
