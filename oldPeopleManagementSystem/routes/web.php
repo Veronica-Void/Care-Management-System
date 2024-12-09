@@ -36,8 +36,6 @@ Route::group(['middleware' => ['admin']], function () {
     Route::post('/admin/role', [AdminPageController::class, 'makeRole'])->name('change-role');
 });
 
-
-
 Route::post('/update-salary', [LoginPageController::class, 'updateSalary'])->name('update.salary');
 Route::post('newRoster',[LoginPageController::class,'newRoster'])->name('newRoster');
 Route::get('/create-roster', [LoginPageController::class, 'newRoster'])->name('roster.create');
@@ -64,11 +62,17 @@ Route::get('/adminReport', [LoginPageController::class, 'missedActivityReport'])
 Route::get('/make/appointment', [AppointmentController::class, 'appointment'])->name('appointments');
 Route::post('/make/appointment', [AppointmentController::class, 'getPatient'])->name('find_patient');
 Route::post('/make/appointment/create', [AppointmentController::class, 'makeAppointment'])->name('makeAppointment');
-
+Route::get('/admin/approval', [LoginPageController::class, 'approval'])->name('approval');
+Route::post('newRoster',[LoginPageController::class,'newRoster'])->name('newRoster');
+Route::get('/create-roster', [LoginPageController::class, 'newRoster'])->name('roster.create');
+Route::post('/store-roster', [LoginPageController::class, 'createRoster'])->name('roster.store');
+Route::get('newRoster',[LoginPageController::class,'newRoster'])->name('newRoster');
+Route::get('approve/{id}', [LoginPageController::class, 'approveUser'])->name('approveUser');
+Route::get('deny/{id}', [LoginPageController::class, 'denyUser'])->name('denyUser');
 
 //Caregiver Routes
 Route::get('/caregiver', [PatientInfoController::class, 'caregiver'])->name('caregiver');
-// Route::post('/caregiver', [PatientInfoController::class, 'checkData'])->name('check');
+Route::post('/caregiver/storePatientInfo', [PatientInfoController::class, 'storePatientInfo'])->name('storePatientInfo');
 Route::post('/caregiver/selectPatient', [PatientInfoController::class, 'selectPatient'])->name('selectPatient');
 
 Route::post('/editMeds', [PatientInfoController::class, 'editMeds'])->name('check');
