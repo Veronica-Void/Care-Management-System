@@ -48,20 +48,36 @@
         @csrf
         <table>
             <thead>
-                <th>Patient ID</th>
+                <th>Patient Name</th>
+                <th>Start Date</th>
+                <th>Appointment Count</th>
                 <th>Total Due</th>
                 <th>New Payment</th>
             </thead>
             <tbody>
                 <tr>
                     <td>
+<<<<<<< Updated upstream
                         patient ID goes here  
+=======
+                        data
+>>>>>>> Stashed changes
                     </td>
+
                     <td>
-                        <p>&nbsp</p>total amount from payment page 
+                        <input type="date" name="start_date" class="form-control" required>
                     </td>
+
                     <td>
-                        <input type="text" name="new_payment" placeholder="Add a new payment">
+                        <input type="number" name="appointment_count" class="form-control" min="1" required>
+                    </td>
+
+                    <td>
+                    <input type="text" name="total_cost" placeholder="Total Due" class="form-control" readonly>
+                    </td>
+
+                    <td>
+                    <input type="text" name="new_payment" placeholder="Add a new payment" class="form-control" required>
                     </td> 
                 </tr>
             </tbody>

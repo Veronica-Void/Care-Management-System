@@ -86,3 +86,6 @@ Route::post('/doctor', [DoctorHomeController::class, 'newPerscription'])->name('
 Route::get('/familyHome', [LoginPageController::class, 'familyHome'])->name('familyHome');
 
 ?>
+
+
+
