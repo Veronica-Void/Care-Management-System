@@ -87,5 +87,3 @@ Route::post('/doctor', [DoctorHomeController::class, 'newPerscription'])->name('
 ?>
 
 
-
-?>
