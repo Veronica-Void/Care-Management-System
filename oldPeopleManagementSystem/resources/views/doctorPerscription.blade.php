@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pescription Page</title>
+    <title>Prescription Page</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <style>
@@ -27,32 +27,6 @@
             Toggle Menu
         </button>
         <div class="collapse mt-3" id="adminHeader">
-            @if(Session::get('role') == 'admin')
-            <div class="d-flex flex-wrap justify-content-center">
-                    <a href="/admin" class="bg-info header-link">Home</a>
-                    <a href="/employees" class="bg-info header-link">View Employees</a>
-                    <a href="/payment" class="bg-info header-link">Manage Payments</a>
-                    <a href="/viewRoster" class="bg-info header-link">View Roster</a>
-                    <a href="/newRoster" class="bg-info header-link">Create Roster</a>
-                    <a href="/admin/role" class="bg-info header-link">Role Page</a>
-                    <a href="/admin/approval" class="bg-info header-link">Approval Page</a>
-                    <a href="/patients" class="bg-info header-link">Patients Page</a>
-                    <a href="/additionalPatientInfo" class="bg-info header-link">Patient Info</a>
-                </div>
-            @endif
-            @if(Session::get('role') == 'supervisor')
-                <div class="d-flex flex-wrap justify-content-center">
-                    <a href="/make/appointment" class="bg-info header-link">Schedule Appointments</a>
-                    <a href="/employees" class="bg-info header-link">View Employees</a>
-                    <a href="/payment" class="bg-info header-link">Manage Payments</a>
-                    <a href="/viewRoster" class="bg-info header-link">View Roster</a>
-                    <a href="/newRoster" class="bg-info header-link">Create Roster</a>
-                    <a href="/admin/role" class="bg-info header-link">Role Page</a>
-                    <a href="/admin/approval" class="bg-info header-link">Approval Page</a>
-                    <a href="/patients" class="bg-info header-link">Patients Page</a>
-                    <a href="/additionalPatientInfo" class="bg-info header-link">Patient Info</a>
-                </div>
-            @endif
             @if(Session::get('role') == 'doctor')
                 <div class="d-flex flex-wrap justify-content-center">
                     <a href="/doctor" class="bg-info header-link">Home</a>
@@ -62,7 +36,7 @@
             @endif
         </div>
     </header>
-    <h2>Perscription Page</h2>
+    <h2>Prescription Page</h2>
 
     @if(session('success'))
         <p style="color: green;">{{ session('success') }}</p>
@@ -128,7 +102,7 @@
         @csrf
         <div class="card shadow-sm mb-4">
             <div class="container-sm card-header bg-primary text-white">
-                <h3>New Perscription</h3>
+                <h3>New Prescription</h3>
             </div>
             <div class="container-sm card-header bg-secondary text-white" style="display: table; padding: 10px;">
                 <input type="hidden" class="form-control" name="patient_name" id="patient_name" value="{{ $patient_name }}" style="max-width: 80%; margin-left: 10%;">
