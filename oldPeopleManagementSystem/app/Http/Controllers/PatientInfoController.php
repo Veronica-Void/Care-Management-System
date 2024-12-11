@@ -17,47 +17,57 @@ class PatientInfoController extends Controller
     {
         //using session to check whether the person logged in is a caregiver
         $id = Session::get('loginId');
-        $care_first = DB::table('users')->where('id', $id)->get()->pluck("f_name");
-        $care_last = DB::table('users')->where('id', $id)->get()->pluck("l_name");
-        $patients = DB::table('users')->where('role', 'patient')->get();
+        $caregiver = DB::table('users')->where('id', $id)->first();
+        $roster = DB::table('rosters')->where('caregiver_name', $caregiver->f_name)->first();
+        $care_first = $caregiver->f_name;
+        $care_last = $caregiver->l_name;
 
-        if (count($patients) == 0) {
+        //grabbing the patients based on the caregiver's assigned group
+        $patients = DB::table('additional_patient_infos')->where('group', $roster->group)->get();
+
+        if ($patients->isEmpty()) {
             $patients = "N/A";
         }
 
-        return view("caregiverHome", compact("patients"));
+        return view("caregiverHome", compact("patients", "care_first", "care_last"));
     }
 
 
     public function selectPatient(Request $request)
     {
+        $request->validate([
+            'patient_name' => 'required|string',
+
+        ]);
         //keeping the selected patient's name in the session and displaying it
         $selectedPatientName = $request->input('patient_name');
+        $patient = DB::table('additional_patient_infos')->where('patient_name', 'like', $selectedPatientName)->first();
         Session()->put('selected_patient', $selectedPatientName);
 
-        return redirect()->route('caregiver')->with('success', 'Patient selected successfully');
+        return redirect()->back()->with('success', 'Patient selected successfully');
     }
 
+    // not using this function, using storePatientInfo - Vee
     // Edits the database and inputs ONLY the checked data
-    public function checkData(Request $request)
-    {
-        alert("HELP");
-        if ($request->morning_med != 1){$request->morning_med = 0;}
-        if ($request->afternoon_med != 1){$request->afternoon_med = 0;}
-        if ($request->night_med != 1){$request->night_med = 0;}
-        if ($request->breakfast != 1){$request->breakfast = 0;}
-        if ($request->lunch != 1){$request->lunch = 0;}
-        if ($request->dinner != 1){$request->dinner = 0;}
+    // public function checkData(Request $request)
+    // {
+    //     alert("HELP");
+    //     if ($request->morning_med != 1){$request->morning_med = 0;}
+    //     if ($request->afternoon_med != 1){$request->afternoon_med = 0;}
+    //     if ($request->night_med != 1){$request->night_med = 0;}
+    //     if ($request->breakfast != 1){$request->breakfast = 0;}
+    //     if ($request->lunch != 1){$request->lunch = 0;}
+    //     if ($request->dinner != 1){$request->dinner = 0;}
 
-        $newData = DB::table('patient_infos')->where('patient_name', $request->patient)->get();
-        $newData->morning_meds = $request->morning_med;
-        $newData->afternoon_meds = $request->afternoon_med;
-        $newData->night_meds = $request->night_med;
-        $newData->breakfast = $request->breakfast;
-        $newData->lunch = $request->lunch;
-        $newData->dinner = $request->dinner;
-        $newData->save();
-    }
+    //     $newData = DB::table('patient_infos')->where('patient_name', $request->patient)->get();
+    //     $newData->morning_meds = $request->morning_med;
+    //     $newData->afternoon_meds = $request->afternoon_med;
+    //     $newData->night_meds = $request->night_med;
+    //     $newData->breakfast = $request->breakfast;
+    //     $newData->lunch = $request->lunch;
+    //     $newData->dinner = $request->dinner;
+    //     $newData->save();
+    // }
 
     public function editMeds(Request $request)
     {
@@ -142,42 +152,49 @@ class PatientInfoController extends Controller
 
     public function storePatientInfo (Request $request){
         if($request->roles === 'caregiver'){
+            // request validation
             $request->validate([
-                'patient_name' => 'required|string',
-                'patient_id' => 'nullable|integer',
-                'docs_name' => 'nullable|string',
-                'docs_appt' => 'nullable|string',
-                'caregiver_first' => 'nullable|string',
-                'caregiver_last' => 'nullable|string',
-                'morning_meds' => 'required|integer',
-                'afternoon_meds' => 'required|integer',
-                'night_meds' => 'required|integer',
-                'breakfast' => 'required|integer',
-                'lunch' => 'required|integer',
-                'dinner' => 'required|integer',
+                'morning_meds' => 'nullable|integer',
+                'afternoon_meds' => 'nullable|integer',
+                'night_meds' => 'nullable|integer',
+                'breakfast' => 'nullable|integer',
+                'lunch' => 'nullable|integer',
+                'dinner' => 'nullable|integer',
             ]);
         }
-        
-        //new instance to add the checked boxes to the database. 
-        //have to figure out how to add a value or price to the doc appt, meals, etc so I can calculate it and use in payment functionality.
-        $submitChecklist = new PatientInfo();
-        $submitChecklist->patient_name = $request->input('patient_name');
-        $submitChecklist->patient_id = $request->input('patient_id');
-        //for doctors name and appt, you have to get that info from the database and then add it to the patient info table
-        //make sure the correct doctor is selected by default, for example: If patient is group A and Doc has Group A then they are assigned to that doctor.
-        $submitChecklist->docs_name = $request->input('docs_name');
-        $submitChecklist->docs_appt = $request->input('docs_appt');
-        $submitChecklist->caregiver_first = $request->input('caregiver_first');
-        $submitChecklist->caregiver_last = $request->input('caregiver_last');
-        $submitChecklist->morning_meds = $request->input('morning_meds');
-        $submitChecklist->afternoon_meds = $request->input('afternoon_meds');
-        $submitChecklist->night_meds = $request->input('night_meds');
-        $submitChecklist->breakfast = $request->input('breakfast');
-        $submitChecklist->lunch = $request->input('lunch');
-        $submitChecklist->dinner = $request->input('dinner');
-        $submitChecklist->save();
-        return redirect()->route('caregiver')->with('success', 'Patient information has been added.');
 
+        //new instance to add the checked boxes to the database. 
+        $patientInfo = new patientInfo();
+
+        // patient info
+        $patientInfo->patient_name = $request->input('patient_name');
+        $patientInfo->patient_id = $request->input('patient_id');
+
+        // doc info
+        $patientInfo->docs_name = $request->input('docs_name');
+        $patientInfo->docs_appt = $request->input('docs_appt');
+
+        // caregiver info
+        $patientInfo->caregiver_first = $request->input('caregiver_first');
+        $patientInfo->caregiver_last = $request->input('caregiver_last');
+
+        // medications
+        $patientInfo->morning_meds = $request->has('morning_meds') ? 1 : 0;
+        $patientInfo->afternoon_meds = $request->has('afternoon_meds') ? 1 : 0;
+        $patientInfo->night_meds = $request->has('night_meds') ? 1 : 0;
+
+        // meals
+        $patientInfo->breakfast = $request->has('breakfast') ? 1 : 0;
+        $patientInfo->lunch = $request->has('lunch') ? 1 : 0;
+        $patientInfo->dinner = $request->has('dinner') ? 1 : 0;
+
+        //save the data to the DB
+        $patientInfo->save();
+
+        //have to figure out how to add a value or price to the doc appt, meals, etc so I can calculate it and use in payment functionality.
+        //make sure the correct doctor is selected by default, for example: If patient is group A and Doc has Group A then they are assigned to that doctor.
+        return redirect()->route('caregiver')->with('success', 'Patient information has been added Successfully.');
+        
     }
 }
 
